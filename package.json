@@ -1,0 +1,36 @@
+{
+    "name": "jooby-rest",
+    "version": "0.0.1",
+    "type": "module",
+    "description": "",
+    "author": "",
+    "scripts": {
+        "lint": "eslint .",
+        "api:serve": "redoc-cli serve --watch api/openapi.json -p 3030 --ssr",
+        "api:build": "redoc-cli bundle api/openapi.json -o api/index.html",
+        "develop": "NODE_ENV=develop LOG_LEVEL=trace nodemon --ignore api/ src/index.js",
+        "develop:inspect": "NODE_ENV=develop node --inspect src/index.js",
+        "start": "node src/index.js",
+        "start:develop": "npm run api:serve & npm run develop",
+        "test": "npm run lint && jest",
+        "test:watch": "jest --watch"
+    },
+    "devDependencies": {
+        "eslint": "^8.51.0",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-plugin-import": "^2.28.1",
+        "jest": "^29.7.0",
+        "nodemon": "^3.0.1"
+    },
+    "dependencies": {
+        "dotenv": "^16.0.0",
+        "fastify": "^4.13.0",
+        "fastify-plugin": "^4.5.0",
+        "fastify-print-routes": "^2.1.0",
+        "jooby-codec": "^3.7.0",
+        "pino-pretty": "^10.2.0",
+        "redoc-cli": "^0.13.9",
+        "swagger-cli": "^4.0.4"
+    },
+    "keywords": []
+}
