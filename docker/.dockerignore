@@ -1,0 +1,9 @@
+# exclude everything
+*
+
+# use only necessary dirs
+!./api
+!./src
+!./package.json
+!./package-lock.json
+
