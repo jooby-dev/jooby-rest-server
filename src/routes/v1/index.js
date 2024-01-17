@@ -1,5 +1,6 @@
 import analog from './analog.js';
 import obisObserver from './obisObserver.js';
+import mtxLora from './mtxLora.js';
 
 
 export default async fastify => {
@@ -10,4 +11,5 @@ export default async fastify => {
 
     analog(fastify);
     obisObserver(fastify);
+    mtxLora(fastify);
 };
