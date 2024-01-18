@@ -6,7 +6,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 process.on('unhandledRejection', error => {
-    // eslint-disable-next-line no-console
     console.error('unhandledRejection', error);
 
     // eslint-disable-next-line no-process-exit

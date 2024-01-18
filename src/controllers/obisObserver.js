@@ -1,5 +1,5 @@
 import {obisObserver} from '../externals/joobyCodec.js';
-import commonDecode from './utils/decode.js';
+import commonDecode from './utils/commonDecode.js';
 
 
 /**

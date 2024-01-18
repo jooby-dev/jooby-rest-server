@@ -1,3 +1,4 @@
+import './setup.js';
 import buildFastify from './buildFastify.js';
 import {http as configHTTP} from './configs/main.js';
 

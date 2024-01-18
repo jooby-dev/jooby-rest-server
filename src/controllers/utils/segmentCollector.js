@@ -1,10 +1,12 @@
 import DataSegmentsCollector from 'jooby-codec/analog/DataSegmentsCollector.js';
-import getEnvNumber from '../../utils/get.env.number.js';
+import {getNumber} from '../../utils/environment.js';
 
 
 const collectors = new Map();
 
-const COLLECTOR_TTL = getEnvNumber('COLLECTOR_TTL', 120);
+const COLLECTOR_TTL = getNumber('COLLECTOR_TTL', 120);
+const COLLECTOR_CLEANUP_INTERVAL = getNumber('COLLECTOR_CLEANUP_INTERVAL', 5 * 60 * 1000);
+
 
 const getEpochSeconds = () => Math.floor(Date.now() / 1000);
 
@@ -18,7 +20,7 @@ const cleanupCollectors = () => {
     });
 };
 
-setInterval(cleanupCollectors, 5 * 60 * 1000);
+setInterval(cleanupCollectors, COLLECTOR_CLEANUP_INTERVAL);
 
 
 export const getSegmentCollector = deviceEUI => {

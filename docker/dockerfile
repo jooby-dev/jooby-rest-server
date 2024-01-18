@@ -1,12 +1,12 @@
 FROM node:iron-slim
 
-WORKDIR /user/app
+WORKDIR /app
 
 # copy default uploads
-#COPY /api/ /user/app/api
-COPY /src/ /user/app/src
-COPY /package.json /user/app/
-COPY /package-lock.json /user/app/
+#COPY /api/ /app/api
+COPY /src/ /app/src
+COPY /package.json /app/
+COPY /package-lock.json /app/
 
 RUN npm ci --omit=dev
 

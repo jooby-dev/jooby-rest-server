@@ -1,4 +1,4 @@
-import getEnvBoolean from '../utils/get.env.boolean.js';
+import {getBoolean} from '../utils/environment.js';
 
 export default {
     level: process.env.LOG_LEVEL || 'info',
@@ -6,7 +6,7 @@ export default {
         target: 'pino-pretty',
         options: {
             ignore: 'pid,hostname,req.req.hostname,req.req.remoteAddress,req.req.remotePort',
-            colorize: getEnvBoolean('LOG_ENABLE_COLORIZE', true),
+            colorize: getBoolean('LOG_ENABLE_COLORIZE', true),
             translateTime: 'yyyy.mm.dd HH:MM:ss.l'
         }
     }
