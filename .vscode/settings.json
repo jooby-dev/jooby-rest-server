@@ -3,6 +3,7 @@
         "fastify",
         "Infomir",
         "jooby",
-        "pino"
+        "pino",
+        "redocly"
     ]
 }
