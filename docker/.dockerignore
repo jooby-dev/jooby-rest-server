@@ -1,0 +1,8 @@
+# exclude everything
+*
+
+# use only necessary dirs
+!./src
+!./package.json
+!./package-lock.json
+
