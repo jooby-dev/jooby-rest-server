@@ -27,7 +27,7 @@
         "fastify": "^4.13.0",
         "fastify-plugin": "^4.5.0",
         "fastify-print-routes": "^2.1.0",
-        "jooby-codec": "^3.7.0",
+        "jooby-codec": "^3.8.0",
         "pino-pretty": "^10.2.0",
         "redoc-cli": "^0.13.9",
         "swagger-cli": "^4.0.4"
