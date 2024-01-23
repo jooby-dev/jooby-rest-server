@@ -10,7 +10,7 @@ const isRequestValid = ( {data, direction, hardwareType} ) => (typeof data === '
     && (!hardwareType || !hardwareTypes.has(hardwareType));
 
 
-export default ( {body}, reply, done ) => {
+export const validateDecoderRequest = ( {body}, reply, done ) => {
     if ( !isRequestValid(body) ) {
         reply.sendError(errors.BAD_REQUEST);
     }
