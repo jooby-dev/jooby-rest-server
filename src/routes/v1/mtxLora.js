@@ -1,4 +1,4 @@
-import {decode} from '../../controllers/mtxLora.js';
+import decode from '../../controllers/decoders/mtxLora.js';
 import {validateDecoderRequest} from './utils/validateDecoderRequest.js';
 
 const resource = '/mtx-lora';

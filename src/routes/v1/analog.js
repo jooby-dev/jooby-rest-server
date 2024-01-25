@@ -1,4 +1,4 @@
-import {decode} from '../../controllers/analog.js';
+import decode from '../../controllers/decoders/analog.js';
 import {validateDecoderRequest} from './utils/validateDecoderRequest.js';
 
 

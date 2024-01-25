@@ -1,4 +1,4 @@
-import {decode} from '../../controllers/obisObserver.js';
+import decode from '../../controllers/decoders/obisObserver.js';
 import {validateDecoderRequest} from './utils/validateDecoderRequest.js';
 
 
