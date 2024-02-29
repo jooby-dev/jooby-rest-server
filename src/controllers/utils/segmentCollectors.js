@@ -1,26 +1,9 @@
 import DataSegmentsCollector from 'jooby-codec/analog/DataSegmentsCollector.js';
-import {getNumber} from '../../utils/environment.js';
+import getEpochSeconds from '../../utils/getEpochSeconds.js';
+import {startCollectorsCleaner} from './collectorsCleaner.js';
 
 
 const collectors = new Map();
-
-const COLLECTOR_TTL = getNumber('COLLECTOR_TTL', 120);
-const COLLECTOR_CLEANUP_INTERVAL = getNumber('COLLECTOR_CLEANUP_INTERVAL', 5 * 60 * 1000);
-
-
-const getEpochSeconds = () => Math.floor(Date.now() / 1000);
-
-const cleanupCollectors = () => {
-    const currentTime = getEpochSeconds();
-
-    [...collectors].forEach(([key, {creationTimeSec}]) => {
-        if ( creationTimeSec + COLLECTOR_TTL < currentTime ) {
-            collectors.delete(key);
-        }
-    });
-};
-
-setInterval(cleanupCollectors, COLLECTOR_CLEANUP_INTERVAL);
 
 
 export const getSegmentCollector = deviceEUI => {
@@ -30,9 +13,18 @@ export const getSegmentCollector = deviceEUI => {
         collector = new DataSegmentsCollector();
         collector.creationTime = getEpochSeconds();
         collectors.set(deviceEUI, collector);
+        startCollectorsCleaner();
     }
 
     return collector;
 };
 
 export const removeSegmentCollector = deviceEUI => collectors.delete(deviceEUI);
+
+export const cleanupSegmentCollectors = ( currentTime, ttlPeriod ) => {
+    [...collectors].forEach(([key, {creationTimeSec}]) => {
+        if ( creationTimeSec + ttlPeriod < currentTime ) {
+            collectors.delete(key);
+        }
+    });
+};
