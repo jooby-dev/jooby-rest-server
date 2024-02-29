@@ -18,14 +18,14 @@
         "eslint-config-airbnb-base": "^15.0.0",
         "eslint-plugin-import": "^2.28.1",
         "nodemon": "^3.0.1",
-        "@redocly/cli": "^1.6.0"
+        "@redocly/cli": "^1.7.0"
     },
     "dependencies": {
         "dotenv": "^16.0.0",
         "fastify": "^4.13.0",
         "fastify-plugin": "^4.5.0",
-        "fastify-print-routes": "^2.1.0",
-        "jooby-codec": "^3.8.0",
+        "fastify-print-routes": "^3.1.1",
+        "jooby-codec": "^3.11.0",
         "pino-pretty": "^10.2.0"
     },
     "keywords": []
