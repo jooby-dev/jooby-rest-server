@@ -8,9 +8,9 @@
         "lint": "eslint .",
         "api:serve": "redoc-cli serve --watch api/openapi.json -p 3030 --ssr",
         "api:build": "redoc-cli bundle api/openapi.json -o api/index.html",
-        "develop": "NODE_ENV=develop LOG_LEVEL=trace nodemon --ignore api/ src/index.js",
-        "develop:inspect": "NODE_ENV=develop node --inspect src/index.js",
-        "start": "node src/index.js",
+        "develop": "NODE_ENV=develop LOG_LEVEL=trace nodemon --ignore ./api/ ./src/index.js",
+        "develop:inspect": "NODE_ENV=develop node --inspect ./src/index.js",
+        "start": "node ./src/index.js",
         "start:develop": "npm run api:serve & npm run develop"
     },
     "devDependencies": {
