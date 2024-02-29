@@ -7,8 +7,8 @@ import * as directions from 'jooby-codec/constants/directions.js';
 export {
     analog,
     directions,
-    obisObserver,
     mtx,
     mtxLora,
+    obisObserver,
     utils
 };
