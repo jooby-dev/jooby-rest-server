@@ -6,8 +6,9 @@
     "author": "",
     "scripts": {
         "lint": "eslint .",
-        "api:serve": "redoc-cli serve --watch api/openapi.json -p 3030 --ssr",
-        "api:build": "redoc-cli bundle api/openapi.json -o api/index.html",
+        "api:serve": "redocly serve --watch ./api/openapi.yaml -p 3030 --ssr",
+        "api:build": "redocly bundle ./api/openapi.yaml",
+        "api:build-docs": "redocly build-docs ./api/openapi.yaml -o ./api/index.html",
         "develop": "NODE_ENV=develop LOG_LEVEL=trace nodemon --ignore ./api/ ./src/index.js",
         "develop:inspect": "NODE_ENV=develop node --inspect ./src/index.js",
         "start": "node ./src/index.js",
