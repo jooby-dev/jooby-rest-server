@@ -1,10 +1,10 @@
-import {analog, mtx, mtxLora, directions, utils} from '../externals/joobyCodec.js';
+import {analog, mtx, mtxLora, directions, utils} from '../../externals/joobyCodec.js';
 import DataSegment from 'jooby-codec/analog/commands/DataSegmentBase.js';
-import {getSegmentCollector, removeSegmentCollector} from './utils/segmentCollector.js';
+import {getSegmentCollector, removeSegmentCollector} from '../utils/segmentCollector.js';
 import UnknownCommand from 'jooby-codec/mtxLora/UnknownCommand.js';
-import {prepareCommand, prepareCommands} from './utils/prepareCommands.js';
-import codecsNames from './utils/codecsNames.js';
-import errors from '../errors.js';
+import {prepareCommand, prepareCommands} from '../utils/prepareCommands.js';
+import codecsNames from '../utils/codecsNames.js';
+import errors from '../../errors.js';
 
 
 const prepareMtxMessage = ( codecName, {messageId, accessLevel, commands} ) => ({
@@ -45,7 +45,7 @@ const processMtxBuffer = ( buffer, options ) => {
 /**
  * @this fastify.FastifyInstance
  */
-export async function decode ( request, reply ) {
+export default async function decode ( request, reply ) {
     const {message} = analog;
     const {deviceEUI, data} = request.body;
     const analogCommands = [];
