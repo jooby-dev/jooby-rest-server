@@ -1,5 +1,15 @@
 import errors from '../../errors.js';
-import {utils} from 'jooby-codec/index.js';
+import {analog, utils} from 'jooby-codec/index.js';
+import * as Frame from 'jooby-codec/utils/frame.js';
+import {requestById, responseById} from 'jooby-codec/analog/constants/commandRelations.js';
+import {HDLC} from '../../constants/framingFormats.js';
+
+
+const constructCommand = command => {
+    const constructor = requestById.get(command.id) || responseById.get(command.id);
+
+    return new constructor(command);
+};
 
 
 /**
@@ -8,11 +18,22 @@ import {utils} from 'jooby-codec/index.js';
 export default function encode ( {body}, reply ) {
     try {
         const {
+            framingFormat,
+            frame,
             bytesConversionFormat,
             response
         } = body;
 
-        response.response.data = utils.getStringFromBytes('01020304', bytesConversionFormat);
+        const {commands} = framingFormat === HDLC ? frame : body;
+
+        let bytes = analog.message.toBytes(commands.map(constructCommand));
+
+        if ( framingFormat === HDLC ) {
+            bytes = Frame.toFrame(bytes).bytes;
+            response.frame.data = utils.getStringFromBytes(bytes, bytesConversionFormat);
+        } else {
+            response.data = utils.getStringFromBytes(bytes, bytesConversionFormat);
+        }
 
         reply.send(response);
     } catch ( error ) {
