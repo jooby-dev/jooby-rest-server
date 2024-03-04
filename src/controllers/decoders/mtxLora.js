@@ -1,101 +1,67 @@
-import {analog, mtx, mtxLora, utils} from 'jooby-codec/index.js';
-import * as directions from 'jooby-codec/constants/directions.js';
-import DataSegment from 'jooby-codec/analog/commands/DataSegmentBase.js';
-import {getSegmentCollector, removeSegmentCollector} from '../utils/segmentCollectors.js';
-import UnknownCommand from 'jooby-codec/mtxLora/UnknownCommand.js';
-import {prepareCommand, prepareCommands} from '../utils/prepareCommands.js';
-import codecsNames from '../utils/codecsNames.js';
+import {decodeAnalogMessage} from './utils/decodeAnalogMessage.js';
+import {analog, mtxLora, utils} from 'jooby-codec/index.js';
+import {prepareCommands} from '../utils/prepareCommands.js';
 import errors from '../../errors.js';
 
 
-const prepareMtxMessage = ( codecName, {messageId, accessLevel, commands} ) => ({
-    messageId,
-    accessLevel,
-    codec: codecName,
-    commands: prepareCommands(commands)
-});
+const processMtxBuffer = ( data, options ) => {
+    const {messageId, accessLevel, commands} = mtxLora.message.fromBytes(data, options);
 
-const readMtxLoraMessage = ( data, options ) => {
-    const message = mtxLora.message.fromBytes(data, options);
-
-    if ( !message.commands.some(({command}) => command instanceof UnknownCommand) ) {
-        return prepareMtxMessage(codecsNames.get(mtxLora), message);
-    }
-
-    return null;
+    return {
+        messageId,
+        accessLevel,
+        commands: prepareCommands(commands, options.bytesConversionFormat)
+    };
 };
-
-const readMtxMessage = ( data, options ) => {
-    const message = mtx.message.fromBytes(data, {...options, skipLrcCheck: true});
-
-    return prepareMtxMessage(codecsNames.get(mtx), message);
-};
-
-const processMtxBuffer = ( buffer, options ) => {
-    const message = readMtxLoraMessage(buffer, options) || readMtxMessage(buffer, options);
-
-    if ( message ) {
-        message.isValid = true;
-        message.data = utils.getBase64FromBytes(buffer);
-    }
-
-    return message;
-};
-
 
 /**
  * @this fastify.FastifyInstance
  */
-export default async function decode ( request, reply ) {
-    const {message} = analog;
-    const {deviceEUI, data} = request.body;
-    const analogCommands = [];
-    let mtxMessage;
-
-    // eslint-disable-next-line import/namespace
-    const direction = directions ? directions[request.body.direction.toUpperCase()] : undefined;
+export default function decode ( {body}, reply ) {
+    const {
+        bytes,
+        bytesConversionFormat,
+        response
+    } = body;
+    const mtxMessages = [];
 
     try {
-        const {commands, isValid} = message.fromBase64(
-            data,
-            {direction, hardwareType: analog.constants.hardwareTypes.MTXLORA}
-        );
+        const {
+            isValid,
+            commands,
+            assembledData
+        } = decodeAnalogMessage(bytes, {...body, hardwareType: analog.constants.hardwareTypes.MTXLORA});
 
-        for ( let index = 0; index < commands.length; index++ ) {
-            const {command} = commands[index];
+        for ( let index = 0; index < assembledData?.length; index++ ) {
+            const mtxBuffer = assembledData[index];
 
-            if ( command instanceof DataSegment ) {
-                const collector = getSegmentCollector(deviceEUI);
-                const dataSegment = {...command.parameters, data: new Uint8Array(command.parameters.data)};
-                const mtxBuffer = collector.push(dataSegment);
+            if ( mtxBuffer.length !== 0 ) {
+                const mtxMessage = processMtxBuffer(mtxBuffer.data, body);
 
-                command.parameters.data = utils.getBase64FromBytes(command.parameters.data);
-
-                if ( mtxBuffer.length !== 0 ) {
-                    mtxMessage = processMtxBuffer(mtxBuffer, {direction}) || {};
-                    mtxMessage.segmentationSessionId = dataSegment.segmentationSessionId;
-                    mtxMessage.deviceEUI = deviceEUI;
-                    removeSegmentCollector(deviceEUI);
+                if ( mtxMessage ) {
+                    mtxMessages.push({
+                        segmentationSessionId: mtxBuffer.segmentationSessionId,
+                        data: utils.getStringFromBytes(mtxBuffer.data, bytesConversionFormat),
+                        ...mtxMessage
+                    });
                 }
             }
-
-            analogCommands.push(prepareCommand(command));
         }
 
-        const result = [{
+        const message = {
             isValid,
-            deviceEUI,
-            data,
-            codec: codecsNames.get(analog),
-            commands: analogCommands
-        }];
+            commands: prepareCommands(commands, bytesConversionFormat)
+        };
 
-        if ( mtxMessage?.isValid ) {
-            result.push(mtxMessage);
-        }
+        const assembledMessages = mtxMessages?.length === 0 ? undefined : mtxMessages;
 
-        reply.send(result);
+        reply.send({
+            protocol: 'mtxLora',
+            ...response,
+            message,
+            assembledMessages
+        });
     } catch ( error ) {
-        reply.sendError(errors.INTERNAL_SERVER_ERROR, error);
+        reply.sendError(errors.BAD_REQUEST, error);
     }
 }
