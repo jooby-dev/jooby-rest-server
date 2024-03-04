@@ -1,8 +1,8 @@
-import errors from '../../errors.js';
-import {analog, utils} from 'jooby-codec/index.js';
+import {obisObserver, utils} from 'jooby-codec/index.js';
+import {requestById, responseById} from 'jooby-codec/obis-observer/constants/commandRelations.js';
 import * as Frame from 'jooby-codec/utils/frame.js';
-import {requestById, responseById} from 'jooby-codec/analog/constants/commandRelations.js';
 import {HDLC} from '../../constants/framingFormats.js';
+import errors from '../../errors.js';
 
 
 const constructCommand = command => {
@@ -26,7 +26,7 @@ export default function encode ( {body}, reply ) {
 
         const {commands} = framingFormat === HDLC ? frame : body;
 
-        let bytes = analog.message.toBytes(commands.map(constructCommand));
+        let bytes = obisObserver.message.toBytes(commands.map(constructCommand));
 
         if ( framingFormat === HDLC ) {
             bytes = Frame.toFrame(bytes).bytes;
