@@ -1,6 +1,6 @@
-import {obisObserver, utils} from 'jooby-codec/index.js';
-import {requestById, responseById} from 'jooby-codec/obis-observer/constants/commandRelations.js';
-import * as Frame from 'jooby-codec/utils/frame.js';
+import {obisObserver, utils} from '@jooby-dev/jooby-codec/index.js';
+import {requestById, responseById} from '@jooby-dev/jooby-codec/obis-observer/constants/commandRelations.js';
+import * as Frame from '@jooby-dev/jooby-codec/utils/frame.js';
 import {HDLC} from '../../constants/framingFormats.js';
 import errors from '../../errors.js';
 

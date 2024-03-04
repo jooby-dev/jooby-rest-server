@@ -1,5 +1,5 @@
-import * as constants from 'jooby-codec/constants/index.js';
-import {analog} from 'jooby-codec/index.js';
+import * as constants from '@jooby-dev/jooby-codec/constants/index.js';
+import {analog} from '@jooby-dev/jooby-codec/index.js';
 import * as framingFormats from '../../../constants/framingFormats.js';
 import errors from '../../../errors.js';
 import {HDLC} from '../../../constants/framingFormats.js';

@@ -1,5 +1,5 @@
-import {analog, utils} from 'jooby-codec/index.js';
-import DataSegment from 'jooby-codec/analog/commands/DataSegmentBase.js';
+import {analog, utils} from '@jooby-dev/jooby-codec/index.js';
+import DataSegment from '@jooby-dev/jooby-codec/analog/commands/DataSegmentBase.js';
 import {getSegmentCollector, removeSegmentCollector} from '../../utils/segmentCollectors.js';
 
 

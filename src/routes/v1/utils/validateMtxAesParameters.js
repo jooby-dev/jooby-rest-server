@@ -1,4 +1,4 @@
-import {mtx, utils} from 'jooby-codec/index.js';
+import {mtx, utils} from '@jooby-dev/jooby-codec/index.js';
 import errors from '../../../errors.js';
 
 

@@ -1,4 +1,4 @@
-import {utils} from 'jooby-codec/index.js';
+import {utils} from '@jooby-dev/jooby-codec/index.js';
 
 
 export const prepareCommand = ( command, bytesConversionFormat ) => {

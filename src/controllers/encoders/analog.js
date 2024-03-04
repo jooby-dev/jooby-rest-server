@@ -1,7 +1,7 @@
 import errors from '../../errors.js';
-import {analog, utils} from 'jooby-codec/index.js';
-import * as Frame from 'jooby-codec/utils/frame.js';
-import {requestById, responseById} from 'jooby-codec/analog/constants/commandRelations.js';
+import {analog, utils} from '@jooby-dev/jooby-codec/index.js';
+import * as Frame from '@jooby-dev/jooby-codec/utils/frame.js';
+import {requestById, responseById} from '@jooby-dev/jooby-codec/analog/constants/commandRelations.js';
 import {HDLC} from '../../constants/framingFormats.js';
 
 

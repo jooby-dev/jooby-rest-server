@@ -1,9 +1,9 @@
-import {analog, mtxLora, utils} from 'jooby-codec/index.js';
-import {splitBytesToDataSegments} from 'jooby-codec/analog/splitBytesToDataSegments.js';
-import {requestById as mtxRequestById, responseById as mtxResponseById} from 'jooby-codec/mtx/constants/commandRelations.js';
-import {requestById as mtxLoraRequestById, responseById as mtxLoraResponseById} from 'jooby-codec/mtxLora/constants/commandRelations.js';
-import * as directions from 'jooby-codec/constants/directions.js';
-import {accessLevels} from 'jooby-codec/mtx/constants/index.js';
+import {analog, mtxLora, utils} from '@jooby-dev/jooby-codec/index.js';
+import {splitBytesToDataSegments} from '@jooby-dev/jooby-codec/analog/splitBytesToDataSegments.js';
+import {requestById as mtxRequestById, responseById as mtxResponseById} from '@jooby-dev/jooby-codec/mtx/constants/commandRelations.js';
+import {requestById as mtxLoraRequestById, responseById as mtxLoraResponseById} from '@jooby-dev/jooby-codec/mtxLora/constants/commandRelations.js';
+import * as directions from '@jooby-dev/jooby-codec/constants/directions.js';
+import {accessLevels} from '@jooby-dev/jooby-codec/mtx/constants/index.js';
 import {HDLC} from '../../constants/framingFormats.js';
 import errors from '../../errors.js';
 

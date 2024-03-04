@@ -1,6 +1,6 @@
 import {validateEncoderRequest, validateDecoderRequest} from './validateRequest.js';
 import {validateMtxAesDecoderParameters, validateMtxAesEncoderParameters} from './validateMtxAesParameters.js';
-import {mtx} from 'jooby-codec/index.js';
+import {mtx} from '@jooby-dev/jooby-codec/index.js';
 import errors from '../../../errors.js';
 import {HDLC} from '../../../constants/framingFormats.js';
 

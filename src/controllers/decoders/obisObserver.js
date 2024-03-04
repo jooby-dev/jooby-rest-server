@@ -1,4 +1,4 @@
-import {obisObserver} from 'jooby-codec/index.js';
+import {obisObserver} from '@jooby-dev/jooby-codec/index.js';
 import decodeFrames from './utils/decodeFrames.js';
 import {HDLC} from '../../constants/framingFormats.js';
 import {prepareCommands, prepareFrame} from '../utils/prepareCommands.js';

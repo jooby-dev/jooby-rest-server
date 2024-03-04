@@ -27,7 +27,7 @@
         "fastify": "^4.13.0",
         "fastify-plugin": "^4.5.0",
         "fastify-print-routes": "^3.1.1",
-        "jooby-codec": "^3.11.0",
+        "@jooby-dev/jooby-codec": "2024.305.1439",
         "pino-pretty": "^10.2.0"
     },
     "keywords": []

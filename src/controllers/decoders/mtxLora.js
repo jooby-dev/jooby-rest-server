@@ -1,5 +1,5 @@
 import {decodeAnalogMessage} from './utils/decodeAnalogMessage.js';
-import {analog, mtxLora, utils} from 'jooby-codec/index.js';
+import {analog, mtxLora, utils} from '@jooby-dev/jooby-codec/index.js';
 import {prepareCommands} from '../utils/prepareCommands.js';
 import errors from '../../errors.js';
 

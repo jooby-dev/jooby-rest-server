@@ -1,5 +1,5 @@
-import {mtx, utils} from 'jooby-codec/index.js';
-import {requestById, responseById} from 'jooby-codec/mtx/constants/commandRelations.js';
+import {mtx, utils} from '@jooby-dev/jooby-codec/index.js';
+import {requestById, responseById} from '@jooby-dev/jooby-codec/mtx/constants/commandRelations.js';
 import {HDLC} from '../../constants/framingFormats.js';
 import errors from '../../errors.js';
 
