@@ -1,4 +1,4 @@
-import {analog, obisObserver, mtx, mtxLora} from '../../externals/joobyCodec.js';
+import {analog, obisObserver, mtx, mtxLora} from 'jooby-codec/index.js';
 
 
 export default new Map([

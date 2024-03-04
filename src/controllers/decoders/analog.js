@@ -1,4 +1,4 @@
-import {analog} from '../../externals/joobyCodec.js';
+import {analog} from 'jooby-codec/index.js';
 import commonDecode from '../utils/commonDecode.js';
 
 

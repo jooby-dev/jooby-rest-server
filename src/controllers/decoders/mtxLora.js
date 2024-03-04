@@ -1,4 +1,5 @@
-import {analog, mtx, mtxLora, directions, utils} from '../../externals/joobyCodec.js';
+import {analog, mtx, mtxLora, utils} from 'jooby-codec/index.js';
+import * as directions from 'jooby-codec/constants/directions.js';
 import DataSegment from 'jooby-codec/analog/commands/DataSegmentBase.js';
 import {getSegmentCollector, removeSegmentCollector} from '../utils/segmentCollectors.js';
 import UnknownCommand from 'jooby-codec/mtxLora/UnknownCommand.js';

@@ -1,4 +1,4 @@
-import {obisObserver} from '../../externals/joobyCodec.js';
+import {obisObserver} from 'jooby-codec/index.js';
 import commonDecode from '../utils/commonDecode.js';
 
 

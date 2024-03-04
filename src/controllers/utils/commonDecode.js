@@ -1,4 +1,4 @@
-import {directions} from '../../externals/joobyCodec.js';
+import * as directions from 'jooby-codec/constants/directions.js';
 import {prepareCommands} from './prepareCommands.js';
 import codecsNames from './codecsNames.js';
 import errors from '../../errors.js';

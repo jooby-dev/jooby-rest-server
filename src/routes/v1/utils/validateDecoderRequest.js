@@ -1,4 +1,5 @@
-import {analog, directions} from '../../../externals/joobyCodec.js';
+import {analog} from 'jooby-codec/index.js';
+import * as directions from 'jooby-codec/constants/directions.js';
 import errors from '../../../errors.js';
 
 
