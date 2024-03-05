@@ -12,7 +12,8 @@
         "develop": "NODE_ENV=develop LOG_LEVEL=trace nodemon --ignore ./api/ ./src/index.js",
         "develop:inspect": "NODE_ENV=develop node --inspect ./src/index.js",
         "start": "node ./src/index.js",
-        "start:develop": "npm run api:serve & npm run develop"
+        "start:develop": "npm run api:serve & npm run develop",
+        "test": "npm run lint && node --test --test-concurrency 1"
     },
     "devDependencies": {
         "eslint": "^8.51.0",
