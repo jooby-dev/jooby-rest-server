@@ -6,21 +6,19 @@ import errors from '../../errors.js';
 
 
 const decodeMessage = ( bytes, options ) => {
-    const {bytesConversionFormat} = options;
     const {isValid, commands} = decodeAnalogMessage(bytes, options);
 
     return {
         isValid,
-        commands: prepareCommands(commands, bytesConversionFormat)
+        commands: prepareCommands(commands, options)
     };
 };
 
 const decodeFrame = ( frame, options ) => {
-    const {bytesConversionFormat} = options;
     const message = decodeMessage(frame.content, options);
 
     return {
-        ...prepareFrame(frame, bytesConversionFormat),
+        ...prepareFrame(frame, options),
         message
     };
 };

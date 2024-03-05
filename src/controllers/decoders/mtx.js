@@ -17,7 +17,7 @@ const decodeMessage = ( bytes, options ) => {
     return {
         messageId,
         accessLevel,
-        commands: prepareCommands(commands, options.bytesConversionFormat)
+        commands: prepareCommands(commands, options)
     };
 };
 
@@ -26,7 +26,7 @@ const decodeFrame = ( frame, options ) => {
     const header = buffer.getFrameHeader();
 
     return {
-        ...prepareFrame(frame, options.bytesConversionFormat),
+        ...prepareFrame(frame, options),
         ...header,
         ...decodeMessage(buffer.getBytesLeft(), options)
     };

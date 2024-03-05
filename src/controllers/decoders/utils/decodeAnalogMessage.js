@@ -5,7 +5,7 @@ import {getSegmentCollector, removeSegmentCollector} from '../../utils/segmentCo
 
 export const decodeAnalogMessage = ( bytes, options ) => {
     const {message} = analog;
-    const {deviceEUI, bytesConversionFormat} = options;
+    const {deviceEUI} = options;
     const {commands, isValid} = message.fromBytes(bytes, options);
     const assembledDataArray = [];
 
@@ -17,7 +17,7 @@ export const decodeAnalogMessage = ( bytes, options ) => {
             const assembledData = collector.push(command.parameters);
 
             if ( assembledData.length !== 0 ) {
-                command.parameters.assembledData = utils.getStringFromBytes(assembledData, bytesConversionFormat);
+                command.parameters.assembledData = utils.getStringFromBytes(assembledData, options);
                 assembledDataArray.push({
                     segmentationSessionId: command.parameters.segmentationSessionId,
                     data: assembledData

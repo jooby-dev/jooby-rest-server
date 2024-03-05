@@ -30,9 +30,9 @@ export default function encode ( {body}, reply ) {
 
         if ( framingFormat === HDLC ) {
             bytes = mtx.message.toFrame(bytes, frame);
-            response.frame.data = utils.getStringFromBytes(bytes, bytesConversionFormat);
+            response.frame.data = utils.getStringFromBytes(bytes, {bytesConversionFormat});
         } else {
-            response.data = utils.getStringFromBytes(bytes, bytesConversionFormat);
+            response.data = utils.getStringFromBytes(bytes, {bytesConversionFormat});
         }
 
         reply.send(response);

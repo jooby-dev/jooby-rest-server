@@ -10,7 +10,7 @@ const processMtxBuffer = ( data, options ) => {
     return {
         messageId,
         accessLevel,
-        commands: prepareCommands(commands, options.bytesConversionFormat)
+        commands: prepareCommands(commands, options)
     };
 };
 
@@ -41,7 +41,7 @@ export default function decode ( {body}, reply ) {
                 if ( mtxMessage ) {
                     mtxMessages.push({
                         segmentationSessionId: mtxBuffer.segmentationSessionId,
-                        data: utils.getStringFromBytes(mtxBuffer.data, bytesConversionFormat),
+                        data: utils.getStringFromBytes(mtxBuffer.data, {bytesConversionFormat}),
                         ...mtxMessage
                     });
                 }
@@ -50,7 +50,7 @@ export default function decode ( {body}, reply ) {
 
         const message = {
             isValid,
-            commands: prepareCommands(commands, bytesConversionFormat)
+            commands: prepareCommands(commands, {bytesConversionFormat})
         };
 
         const assembledMessages = mtxMessages?.length === 0 ? undefined : mtxMessages;

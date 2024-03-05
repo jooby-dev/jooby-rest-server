@@ -6,18 +6,16 @@ import errors from '../../errors.js';
 
 
 const decodeMessage = ( bytes, options ) => {
-    const {bytesConversionFormat} = options;
     const {commands} = obisObserver.message.fromBytes(bytes, options);
 
-    return prepareCommands(commands, bytesConversionFormat);
+    return prepareCommands(commands, options);
 };
 
 const decodeFrame = ( frame, options ) => {
-    const {bytesConversionFormat} = options;
     const commands = decodeMessage(frame.content, options);
 
     return {
-        ...prepareFrame(frame, bytesConversionFormat),
+        ...prepareFrame(frame, options),
         commands
     };
 };

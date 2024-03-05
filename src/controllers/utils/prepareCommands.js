@@ -1,17 +1,17 @@
 import {utils} from '@jooby-dev/jooby-codec/index.js';
 
 
-export const prepareCommand = ( command, bytesConversionFormat ) => {
-    const json = command.toJson(bytesConversionFormat);
+const prepareCommand = ( command, options ) => {
+    const json = command.toJson(options);
     const {constructor: {id, name}} = command;
 
     return json ? {id, name, ...JSON.parse(json)} : {id, name};
 };
 
-export const prepareCommands = ( commands, bytesConversionFormat ) => commands.map(({command}) => prepareCommand(command, bytesConversionFormat));
+export const prepareCommands = ( commands, options ) => commands.map(({command}) => prepareCommand(command, options));
 
-export const prepareFrame = ( {isValid, bytes, content}, bytesConversionFormat ) => ({
+export const prepareFrame = ( {isValid, bytes, content}, options ) => ({
     isValid,
-    bytes: utils.getStringFromBytes(bytes, bytesConversionFormat),
-    content: utils.getStringFromBytes(content, bytesConversionFormat)
+    bytes: utils.getStringFromBytes(bytes, options),
+    content: utils.getStringFromBytes(content, options)
 });

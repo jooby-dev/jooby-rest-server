@@ -70,7 +70,7 @@ export default function encode ( {body}, reply ) {
         const dataSegmentCommands = splitBytesToDataSegments(mtxBytes, {maxSegmentSize: 50, ...body});
 
         const segmentBytes = dataSegmentCommands.map(
-            dataSegmentCommand => (utils.getStringFromBytes(analog.message.toBytes([dataSegmentCommand]), bytesConversionFormat))
+            dataSegmentCommand => (utils.getStringFromBytes(analog.message.toBytes([dataSegmentCommand]), {bytesConversionFormat}))
         );
 
         reply.send({
