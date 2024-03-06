@@ -16,10 +16,7 @@ export const validateMtxDecoderRequest = ( request, reply ) => (
 
 export const validateMtxEncoderRequest = ( request, reply ) => {
     const {body} = request;
-    const {
-        framingFormat,
-        frame
-    } = body;
+    const {framingFormat, frame} = body;
 
     if ( !validateEncoderRequest(request, reply) || !validateMtxAesEncoderParameters(request, reply) ) {
         return false;
