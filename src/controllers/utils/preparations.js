@@ -2,10 +2,15 @@ import {utils} from '@jooby-dev/jooby-codec/index.js';
 
 
 const prepareCommand = ( command, options ) => {
-    const json = command.toJson(options);
     const {constructor: {id, name}} = command;
+    let result = {id, name};
 
-    return json ? {id, name, ...JSON.parse(json)} : {id, name};
+    try {
+        result = {...result, ...JSON.parse(command.toJson(options))};
+        // eslint-disable-next-line no-empty
+    } catch {}
+
+    return result;
 };
 
 export const prepareCommands = ( commands, options ) => commands.map(({command}) => prepareCommand(command, options));
