@@ -49,7 +49,6 @@ export default function decode ( {body}, reply ) {
             : {message: decodeMessage(bytes, body)};
 
         reply.send({
-            protocol: 'mtx',
             ...response,
             ...result
         });

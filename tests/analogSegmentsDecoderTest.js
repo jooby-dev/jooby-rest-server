@@ -15,7 +15,6 @@ const segment1 = {
         data: 'HijEMU0QEHlkMCgP/wEdAAAACAAaAAAACAAdAAAACAEdAAAACAAaAAAAMw=='
     },
     response: {
-        protocol: 'analog',
         deviceEUI: '001a79881701b63c',
         direction: DOWNLINK,
         bytesConversionFormat: BASE64,
@@ -44,7 +43,6 @@ const segment2 = {
         data: 'HijEMggAHQAAAAgBHQAAAAgAGgAAAAgAHQAAAAgBHQAAAAgAGgAAAAgAnQ=='
     },
     response: {
-        protocol: 'analog',
         deviceEUI: '001a79881701b63c',
         direction: DOWNLINK,
         bytesConversionFormat: BASE64,
@@ -73,7 +71,6 @@ const segment3 = {
         data: 'HiHEsx0AAAAIAToAAAAIAToAAAAIAToAAAAIAToAAAAIAABj0Lnl5w=='
     },
     response: {
-        protocol: 'analog',
         deviceEUI: '001a79881701b63c',
         direction: DOWNLINK,
         bytesConversionFormat: BASE64,

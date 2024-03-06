@@ -41,7 +41,6 @@ export default function decode ( request, reply ) {
             : {message: decodeMessage(bytes, body)};
 
         reply.send({
-            protocol: 'analog',
             ...response,
             ...result
         });

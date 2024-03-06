@@ -16,7 +16,6 @@ const tests = [
             data: 'HgkjkSMQEAcAAADU'
         },
         response: {
-            protocol: 'analog',
             deviceEUI: '001a79881701b63c',
             direction: DOWNLINK,
             bytesConversionFormat: BASE64,
@@ -44,7 +43,6 @@ const tests = [
             data: '1e09239123101007000000d4'
         },
         response: {
-            protocol: 'analog',
             deviceEUI: '001a79881701b63c',
             direction: DOWNLINK,
             data: '1e09239123101007000000d4',
@@ -72,7 +70,6 @@ const tests = [
             data: '1e09239123101007000000d4'
         },
         response: {
-            protocol: 'analog',
             deviceEUI: '001a79881701b63c',
             direction: DOWNLINK,
             bytesConversionFormat: HEX,

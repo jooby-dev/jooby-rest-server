@@ -52,7 +52,6 @@ export default function decode ( {body}, reply ) {
         const assembledMessages = mtxMessages?.length === 0 ? undefined : mtxMessages;
 
         reply.send({
-            protocol: 'mtxLora',
             ...response,
             message,
             assembledMessages

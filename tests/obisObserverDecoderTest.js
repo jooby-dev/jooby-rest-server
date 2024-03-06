@@ -16,7 +16,6 @@ const tests = [
             data: '04050108080001'
         },
         response: {
-            protocol: 'obisObserver',
             deviceEUI: '001a79881701b63c',
             bytesConversionFormat: HEX,
             data: '04050108080001',
@@ -38,7 +37,6 @@ const tests = [
             data: '04050108080001'
         },
         response: {
-            protocol: 'obisObserver',
             deviceEUI: '001a79881701b63c',
             data: '04050108080001',
             commands: [{
@@ -60,7 +58,6 @@ const tests = [
             data: 'BAUBCAgAAQ=='
         },
         response: {
-            protocol: 'obisObserver',
             deviceEUI: '001a79881701b63c',
             bytesConversionFormat: BASE64,
             data: 'BAUBCAgAAQ==',
@@ -84,7 +81,6 @@ const tests = [
             data: '7e04050108080001567c4e7e'
         },
         response: {
-            protocol: 'obisObserver',
             deviceEUI: '001a79881701b63c',
             bytesConversionFormat: HEX,
             framingFormat: HDLC,
@@ -113,7 +109,6 @@ const tests = [
             data: '7e04050108080001567c4e7e'
         },
         response: {
-            protocol: 'obisObserver',
             deviceEUI: '001a79881701b63c',
             framingFormat: HDLC,
             data: '7e04050108080001567c4e7e',
@@ -142,7 +137,6 @@ const tests = [
             data: 'fgQFAQgIAAFWfE5+'
         },
         response: {
-            protocol: 'obisObserver',
             deviceEUI: '001a79881701b63c',
             bytesConversionFormat: BASE64,
             framingFormat: HDLC,

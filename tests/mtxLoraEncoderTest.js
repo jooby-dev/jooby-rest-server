@@ -11,7 +11,6 @@ const tests = [
         request: {
             deviceEUI: '001a79881701b63c',
             direction: UPLINK,
-            protocol: 'mtxLora',
             messageId: 2,
             segmentationSessionId: 1,
             maxSegmentSize: 40,

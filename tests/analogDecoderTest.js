@@ -17,7 +17,6 @@ const tests = [
             data: '1f020048'
         },
         response: {
-            protocol: 'analog',
             deviceEUI: '001a79881701b63c',
             direction: DOWNLINK,
             bytesConversionFormat: HEX,
@@ -39,7 +38,6 @@ const tests = [
             data: '1f020048'
         },
         response: {
-            protocol: 'analog',
             deviceEUI: '001a79881701b63c',
             direction: DOWNLINK,
             data: '1f020048',
@@ -61,7 +59,6 @@ const tests = [
             data: 'HwIASA=='
         },
         response: {
-            protocol: 'analog',
             deviceEUI: '001a79881701b63c',
             direction: DOWNLINK,
             bytesConversionFormat: BASE64,
@@ -84,7 +81,6 @@ const tests = [
             data: '7e1f02004872f67e'
         },
         response: {
-            protocol: 'analog',
             deviceEUI: '001a79881701b63c',
             bytesConversionFormat: HEX,
             framingFormat: HDLC,
@@ -111,7 +107,6 @@ const tests = [
             data: '7e1f02004872f67e'
         },
         response: {
-            protocol: 'analog',
             deviceEUI: '001a79881701b63c',
             framingFormat: HDLC,
             data: '7e1f02004872f67e',
@@ -138,7 +133,6 @@ const tests = [
             data: 'fh8CAEhy9n4='
         },
         response: {
-            protocol: 'analog',
             deviceEUI: '001a79881701b63c',
             bytesConversionFormat: BASE64,
             framingFormat: HDLC,

@@ -17,7 +17,6 @@ const tests = [
             data: '01101007000042'
         },
         response: {
-            protocol: 'mtx',
             deviceEUI: '001a79881701b63c',
             direction: DOWNLINK,
             bytesConversionFormat: HEX,
@@ -40,7 +39,6 @@ const tests = [
             data: '01101007000042'
         },
         response: {
-            protocol: 'mtx',
             deviceEUI: '001a79881701b63c',
             direction: DOWNLINK,
             data: '01101007000042',
@@ -63,7 +61,6 @@ const tests = [
             data: 'ARAQBwAAQg=='
         },
         response: {
-            protocol: 'mtx',
             deviceEUI: '001a79881701b63c',
             direction: DOWNLINK,
             bytesConversionFormat: BASE64,
@@ -87,7 +84,6 @@ const tests = [
             data: '7e50ffff0001551010070000004f707e'
         },
         response: {
-            protocol: 'mtx',
             deviceEUI: '001a79881701b63c',
             bytesConversionFormat: HEX,
             framingFormat: HDLC,
@@ -116,7 +112,6 @@ const tests = [
             data: '7e50ffff0001551010070000004f707e'
         },
         response: {
-            protocol: 'mtx',
             deviceEUI: '001a79881701b63c',
             framingFormat: HDLC,
             data: '7e50ffff0001551010070000004f707e',
@@ -145,7 +140,6 @@ const tests = [
             data: 'flD//wABVRAQBwAAAE9wfg=='
         },
         response: {
-            protocol: 'mtx',
             deviceEUI: '001a79881701b63c',
             bytesConversionFormat: BASE64,
             framingFormat: HDLC,
@@ -176,7 +170,6 @@ const tests = [
             data: '7e50fffffffe0c7d334704a6e5e63701ad37a5d57192143c52d91c7e'
         },
         response: {
-            protocol: 'mtx',
             deviceEUI: '001a79881701b63c',
             bytesConversionFormat: HEX,
             framingFormat: HDLC,
@@ -206,7 +199,6 @@ const tests = [
             data: '7e50fffffffe0c7d334704a6e5e63701ad37a5d57192143c52d91c7e'
         },
         response: {
-            protocol: 'mtx',
             deviceEUI: '001a79881701b63c',
             framingFormat: HDLC,
             data: '7e50fffffffe0c7d334704a6e5e63701ad37a5d57192143c52d91c7e',
@@ -236,7 +228,6 @@ const tests = [
             data: 'flD////+DH0zRwSm5eY3Aa03pdVxkhQ8Utkcfg=='
         },
         response: {
-            protocol: 'mtx',
             deviceEUI: '001a79881701b63c',
             bytesConversionFormat: BASE64,
             framingFormat: HDLC,

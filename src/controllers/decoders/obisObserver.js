@@ -37,7 +37,6 @@ export default function decode ( {body}, reply ) {
             : {commands: decodeMessage(bytes, body)};
 
         reply.send({
-            protocol: 'obisObserver',
             ...response,
             ...result
         });
