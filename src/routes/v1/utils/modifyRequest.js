@@ -9,6 +9,7 @@ const modifyRequestBody = body => {
         data,
         deviceEUI,
         direction,
+        dlms,
         frame,
         framingFormat,
         hardwareType,
@@ -26,6 +27,7 @@ const modifyRequestBody = body => {
     const response = {
         deviceEUI,
         direction,
+        dlms,
         hardwareType,
         bytesConversionFormat,
         accessLevel,
