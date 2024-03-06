@@ -1,8 +1,11 @@
 {
     "cSpell.words": [
+        "dlms",
         "fastify",
+        "hdlc",
         "Infomir",
         "jooby",
+        "openapi",
         "pino",
         "redocly"
     ]

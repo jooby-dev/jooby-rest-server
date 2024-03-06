@@ -1,6 +1,9 @@
+import decoder from './decoder.js';
+import encoder from './encoder.js';
 import analog from './analog.js';
-import obisObserver from './obisObserver.js';
+import mtx from './mtx.js';
 import mtxLora from './mtxLora.js';
+import obisObserver from './obisObserver.js';
 
 
 export default async fastify => {
@@ -9,7 +12,10 @@ export default async fastify => {
         reply.type('text/plain').send('I\'m alive!');
     });
 
+    decoder(fastify);
+    encoder(fastify);
     analog(fastify);
-    obisObserver(fastify);
+    mtx(fastify);
     mtxLora(fastify);
+    obisObserver(fastify);
 };

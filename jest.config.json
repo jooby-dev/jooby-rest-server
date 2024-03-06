@@ -1,8 +1,0 @@
-{
-    "verbose": true,
-    "testEnvironment": "node",
-    "rootDir": "./tests",
-    "moduleNameMapper": {
-        "(.+)\\.js$": "$1"
-    }
-}
