@@ -61,82 +61,79 @@ docker run \
 
 Available environment variables:
 
-| name      | default value | description                                                                                               |
-| --------- | ------------- | --------------------------------------------------------------------------------------------------------- |
-| NODE_ENV  |               | node environment setup                                                                                    |
-| LOG_LEVEL | info          | [pino log levels](https://github.com/pinojs/pino/blob/master/docs/api.md#loggerlevel-string-gettersetter) |
-| HTTP_HOST | `0.0.0.0`     |                                                                                                           |
-| HTTP_PORT | `3000`        |                                                                                                           |
+| Name        | Default value | Description                                                                                               |
+| ----------- | ------------- | --------------------------------------------------------------------------------------------------------- |
+| `NODE_ENV`  |               | node environment setup                                                                                    |
+| `LOG_LEVEL` | `info`        | [pino log levels](https://github.com/pinojs/pino/blob/master/docs/api.md#loggerlevel-string-gettersetter) |
+| `HTTP_HOST` | `0.0.0.0`     |                                                                                                           |
+| `HTTP_PORT` | `3000`        |                                                                                                           |
 
 ### Routes
 
-| Method | Path                     | description                                                                         |
-| ------ | ------------------------ | ----------------------------------------------------------------------------------- |
-| POST   | /v1/decoder              | General decoder route. Need to specify [protocol](#protocols) in the requests body  |
-| POST   | /v1/decoder/analog       | Decoder for the `analog` protocol based devices                                     |
-| POST   | /v1/decoder/mtx          | Decoder for the `mtx` protocol based devices                                        |
-| POST   | /v1/decoder/mtxLora      | Decoder for the `mtxLora` protocol based devices                                    |
-| POST   | /v1/decoder/obisObserver | Decoder for the `obisObserver` protocol based devices                               |
-| POST   | /v1/encoder              | General encoder route. Need to specify [protocol](#protocols)  in the requests body |
-| POST   | /v1/encoder/analog       | Encoder for the `analog` protocol based devices                                     |
-| POST   | /v1/encoder/mtx          | Encoder for the `mtx` protocol based devices                                        |
-| POST   | /v1/encoder/mtxLora      | Encoder for the `mtxLora` protocol based devices                                    |
-| POST   | /v1/encoder/obisObserver | Encoder for the `obisObserver` protocol based devices                               |
+| Method | Path                       | Description                                                                              |
+| ------ | -------------------------- | ---------------------------------------------------------------------------------------- |
+| `POST` | `/v1/decoder`              | General decoder route. Requires to specify [protocol](#protocols) in the requests body.  |
+| `POST` | `/v1/decoder/analog`       | Decoder for the `analog` protocol based devices.                                         |
+| `POST` | `/v1/decoder/mtx`          | Decoder for the `mtx` protocol based devices.                                            |
+| `POST` | `/v1/decoder/mtxLora`      | Decoder for the `mtxLora` protocol based devices.                                        |
+| `POST` | `/v1/decoder/obisObserver` | Decoder for the `obisObserver` protocol based devices.                                   |
+| `POST` | `/v1/encoder`              | General encoder route. Requires to specify [protocol](#protocols)  in the requests body. |
+| `POST` | `/v1/encoder/analog`       | Encoder for the `analog` protocol based devices.                                         |
+| `POST` | `/v1/encoder/mtx`          | Encoder for the `mtx` protocol based devices.                                            |
+| `POST` | `/v1/encoder/mtxLora`      | Encoder for the `mtxLora` protocol based devices.                                        |
+| `POST` | `/v1/encoder/obisObserver` | Encoder for the `obisObserver` protocol based devices.                                   |
 
 
 ### POST request parameters
 
 #### Framing format
 
-| name | value | description       |
-| ---- | ----- | ----------------- |
-| NONE | `0`   | no framing        |
-| HDLC | `1`   | HDLC frame format |
+| Name   | Value | Description         |
+| ------ | ----- | ------------------- |
+| `NONE` | `0`   | no framing          |
+| `HDLC` | `1`   | `HDLC` frame format |
 
-Default value: `0`
-Example: `framingFormat: 1`
+Default value: `0`.<br>
+Example: `framingFormat: 1`.
 
 #### Bytes conversion format
 
-| name   | value | description                   |
-| ------ | ----- | ----------------------------- |
-| HEX    | `1`   | data treats as hex string     |
-| BASE64 | `2`   | data threats as base64 string |
+| Name     | Value | Description                   |
+| -------- | ----- | ----------------------------- |
+| `HEX`    | `1`   | data treats as hex string     |
+| `BASE64` | `2`   | data threats as base64 string |
 
-
-Default value: `1`
-Example: `bytesConversionFormat: 1`
+Default value: `1`.<br>
+Example: `bytesConversionFormat: 1`.
 
 #### Direction
 
-| name     | value | description                                               |
-| -------- | ----- | --------------------------------------------------------- |
-| AUTO     | `0`   | auto detection                                            |
-| DOWNLINK | `1`   | the path of data transmission from the device to the user |
-| UPLINK   | `2`   | the path of data transmission from the user to the device |
+| Name       | Value | Description                                               |
+| ---------- | ----- | --------------------------------------------------------- |
+| `AUTO`     | `0`   | auto detection                                            |
+| `DOWNLINK` | `1`   | the path of data transmission from the device to the user |
+| `UPLINK`   | `2`   | the path of data transmission from the user to the device |
 
 Note: direction is not utilized for the obisObserver based devices.
-Default value: `0`
-Example: `direction: 1`
-
+Default value: `0`.<br>
+Example: `direction: 1`.
 
 #### Protocols
 
-| Value        | description                           |
-| ------------ | ------------------------------------- |
-| analog       | `analog` protocol based devices       |
-| mtx          | `mtx` protocol based devices          |
-| mtxLora      | `mtxLora` protocol based devices      |
-| obisObserver | `obisObserver` protocol based devices |
+| Value          | Description                           |
+| -------------- | ------------------------------------- |
+| `analog`       | `analog` protocol based devices       |
+| `mtx`          | `mtx` protocol based devices          |
+| `mtxLora`      | `mtxLora` protocol based devices      |
+| `obisObserver` | `obisObserver` protocol based devices |
 
-Example: `protocol: obisObserver`
+Example: `protocol: obisObserver`.
 
 #### Dlms conversion
 
 Valid for the `mtxLora` based devices. OBIS codes used as fields in decoder reports.
 
-Example: `dlms: true`
-
+Example: `dlms: true`.
 
 ### Examples
 
