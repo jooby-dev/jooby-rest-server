@@ -1,18 +1,14 @@
 import * as baseRequest from './request.js';
 import * as mtxRequest from './mtxRequest.js';
 import * as mtxLoraRequest from './mtxLoraRequest.js';
+import * as protocols from '../../../constants/protocols.js';
 import errors from '../../../errors.js';
 
 
-const protocols = [
-    'analog',
-    'mtx',
-    'mtxLora',
-    'obisObserver'
-];
+const protocolSet = new Set(Object.values(protocols));
 
 const validateGeneralRequest = ( protocol, reply ) => {
-    if ( !protocols.includes(protocol) ) {
+    if ( !protocolSet.has(protocol) ) {
         reply.sendError(errors.BAD_REQUEST, `Wrong protocol value. ${protocol}`);
 
         return false;
@@ -29,11 +25,11 @@ export const validateDecoder = ( request, reply ) => {
         return false;
     }
 
-    if ( protocol.toUpperCase() === 'MTX' ) {
+    if ( protocol === protocols.MTX ) {
         return mtxRequest.validateDecoder(request, reply);
     }
 
-    if ( protocol.toUpperCase() === 'MTXLORA' ) {
+    if ( protocol === protocols.MTX_LORA ) {
         return mtxLoraRequest.validateDecoder(request, reply);
     }
 
@@ -47,11 +43,11 @@ export const validateEncoder = ( request, reply ) => {
         return false;
     }
 
-    if ( protocol.toUpperCase() === 'MTX' ) {
+    if ( protocol === protocols.MTX ) {
         return mtxRequest.validateEncoder(request, reply);
     }
 
-    if ( protocol.toUpperCase() === 'MTXLORA' ) {
+    if ( protocol === protocols.MTX_LORA ) {
         return mtxLoraRequest.validateEncoder(request, reply);
     }
 
