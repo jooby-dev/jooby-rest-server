@@ -2,7 +2,7 @@ import {mtx} from '@jooby-dev/jooby-codec/index.js';
 import CommandBinaryBuffer from '@jooby-dev/jooby-codec/mtx/CommandBinaryBuffer.js';
 import decodeFrames from './utils/decodeFrames.js';
 import {HDLC} from '../../constants/framingFormats.js';
-import {prepareCommands, prepareFrame} from '../utils/prepareCommands.js';
+import {prepareCommands, prepareFrame} from '../utils/preparations.js';
 import errors from '../../errors.js';
 
 

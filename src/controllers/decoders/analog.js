@@ -1,7 +1,7 @@
 import {decodeAnalogMessage} from './utils/decodeAnalogMessage.js';
 import {HDLC} from '../../constants/framingFormats.js';
 import decodeFrames from './utils/decodeFrames.js';
-import {prepareCommands, prepareFrame} from '../utils/prepareCommands.js';
+import {prepareCommands, prepareFrame} from '../utils/preparations.js';
 import errors from '../../errors.js';
 
 
