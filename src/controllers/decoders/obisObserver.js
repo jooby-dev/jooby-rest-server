@@ -5,6 +5,8 @@ import {prepareCommands, prepareFrame} from '../utils/preparations.js';
 import errors from '../../errors.js';
 
 
+const obisObserverFrameDataBits = 7;
+
 const decodeMessage = ( bytes, options ) => {
     const {commands} = obisObserver.message.fromBytes(bytes, options);
 
@@ -33,7 +35,7 @@ export default function decode ( {body}, reply ) {
 
     try {
         const result = framingFormat === HDLC
-            ? {frames: decodeFrames(body, 7).map(frame => decodeFrame(frame, body))}
+            ? {frames: decodeFrames(body, obisObserverFrameDataBits).map(frame => decodeFrame(frame, body))}
             : {commands: decodeMessage(bytes, body)};
 
         reply.send({
