@@ -1,10 +1,10 @@
 import encode from '../../controllers/encoders/general.js';
-import {validateGeneralEncoderRequest} from './utils/validateGeneralRequest.js';
+import {validateEncoder} from './utils/generalRequest.js';
 import {modifyEncoderRequest} from './utils/modifyRequest.js';
 
 
 const validateRequest = ( request, reply, done ) => {
-    validateGeneralEncoderRequest(request, reply);
+    validateEncoder(request, reply);
 
     done();
 };

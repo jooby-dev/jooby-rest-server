@@ -1,19 +1,19 @@
 import decode from '../../controllers/decoders/obisObserver.js';
 import encode from '../../controllers/encoders/obisObserver.js';
-import {validateDecoderRequest, validateEncoderRequest} from './utils/validateRequest.js';
+import {validateDecoder, validateEncoder} from './utils/request.js';
 import {modifyDecoderRequest, modifyEncoderRequest} from './utils/modifyRequest.js';
 
 
 const resource = 'obisObserver';
 
 const validateObisObserverDecoderRequest = ( request, reply, done ) => {
-    validateDecoderRequest(request, reply);
+    validateDecoder(request, reply);
 
     done();
 };
 
 const validateObisObserverEncoderRequest = ( request, reply, done ) => {
-    validateEncoderRequest(request, reply);
+    validateEncoder(request, reply);
 
     done();
 };

@@ -6,7 +6,7 @@ const {accessLevels} = mtx.constants;
 const accessLevelsSet = new Set(Object.values(accessLevels));
 
 
-const validateAesParameters = ( request, reply ) => {
+const validateParameters = ( request, reply ) => {
     const {body} = request;
     const {
         aesKey,
@@ -27,17 +27,17 @@ const validateAesParameters = ( request, reply ) => {
 };
 
 
-export const validateMtxAesDecoderParameters = validateAesParameters;
+export const validateDecoder = validateParameters;
 
 
-export const validateMtxAesEncoderParameters = ( request, reply ) => {
+export const validateEncoder = ( request, reply ) => {
     const {body} = request;
     const {
         accessLevel,
         aesKey
     } = body;
 
-    if ( !validateAesParameters(request, reply) ) {
+    if ( !validateParameters(request, reply) ) {
         return false;
     }
 

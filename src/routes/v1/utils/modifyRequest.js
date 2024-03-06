@@ -5,16 +5,16 @@ const modifyRequestBody = body => {
     const {
         accessLevel,
         aesKey,
+        bytesConversionFormat,
         data,
         deviceEUI,
         direction,
-        hardwareType,
-        framingFormat,
         frame,
-        bytesConversionFormat,
+        framingFormat,
+        hardwareType,
+        maxSegmentSize,
         messageId,
-        segmentationSessionId,
-        maxSegmentSize
+        segmentationSessionId
     } = body;
 
     let aesKeyBytes;

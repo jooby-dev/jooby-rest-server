@@ -1,10 +1,10 @@
 import decode from '../../controllers/decoders/general.js';
-import {validateGeneralDecoderRequest} from './utils/validateGeneralRequest.js';
+import {validateDecoder} from './utils/generalRequest.js';
 import {modifyDecoderRequest} from './utils/modifyRequest.js';
 
 
 const validateRequest = ( request, reply, done ) => {
-    validateGeneralDecoderRequest(request, reply);
+    validateDecoder(request, reply);
 
     done();
 };

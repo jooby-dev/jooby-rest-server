@@ -54,7 +54,7 @@ const validateRequest = ( {body}, reply ) => {
 };
 
 
-export const validateDecoderRequest = ( request, reply ) => {
+export const validateDecoder = ( request, reply ) => {
     const {body: {data}} = request;
 
     if ( !validateRequest(request) ) {
@@ -70,7 +70,7 @@ export const validateDecoderRequest = ( request, reply ) => {
     return true;
 };
 
-export const validateEncoderRequest = ( request, reply ) => {
+export const validateEncoder = ( request, reply ) => {
     const {body} = request;
     const {frame, framingFormat} = body;
 

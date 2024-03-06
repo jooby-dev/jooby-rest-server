@@ -1,19 +1,19 @@
 import decode from '../../controllers/decoders/mtxLora.js';
 import encode from '../../controllers/encoders/mtxLora.js';
-import {validateMtxLoraEncoderRequest, validateMtxLoraDecoderRequest} from './utils/validateMtxLoraRequest.js';
+import * as mtxLoraRequest from './utils/mtxLoraRequest.js';
 import {modifyDecoderRequest, modifyEncoderRequest} from './utils/modifyRequest.js';
 
 
 const resource = 'mtxLora';
 
 const validateDecoderRequest = ( request, reply, done ) => {
-    validateMtxLoraDecoderRequest(request, reply);
+    mtxLoraRequest.validateDecoder(request, reply);
 
     done();
 };
 
 const validateEncoderRequest = ( request, reply, done ) => {
-    validateMtxLoraEncoderRequest(request, reply, done);
+    mtxLoraRequest.validateEncoder(request, reply, done);
 
     done();
 };
