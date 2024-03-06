@@ -172,12 +172,12 @@ const tests = [
     }
 ];
 
-const routs = [
+const routes = [
     {url: '/v1/decoder/mtxLora'},
     {url: '/v1/decoder', requestExtension: {protocol: 'mtxLora'}}
 ];
 
 
 describe('mtxLora decoder', () => {
-    tests.forEach(({name, segments}) => runTestsSequence(name, routs, segments));
+    tests.forEach(({name, segments}) => runTestsSequence(name, routes, segments));
 });

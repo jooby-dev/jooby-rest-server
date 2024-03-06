@@ -17,13 +17,13 @@ const runRouteTest = ( route, tests ) => (
     describe(route.url, async () => tests.forEach( test => runTest(route, test)))
 );
 
-export const runTestsSequence = ( name, routs, tests ) => {
+export const runTestsSequence = ( name, routes, tests ) => {
     before(async () => {
         await fastify.ready();
     });
 
     describe(name, async () => {
-        routs.forEach( route => runRouteTest(route, tests));
+        routes.forEach(route => runRouteTest(route, tests));
     });
 
     after(async () => {

@@ -144,10 +144,10 @@ const tests = [
     }
 ];
 
-const routs = [
+const routes = [
     {url: '/v1/encoder/analog'},
     {url: '/v1/encoder', requestExtension: {protocol: 'analog'}}
 ];
 
 
-runTestsSequence('analog encoder', routs, tests);
+runTestsSequence('analog encoder', routes, tests);

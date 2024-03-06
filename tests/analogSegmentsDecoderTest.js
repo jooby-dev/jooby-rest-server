@@ -113,12 +113,12 @@ const tests = [
     }
 ];
 
-const routs = [
+const routes = [
     {url: '/v1/decoder/analog'},
     {url: '/v1/decoder', requestExtension: {protocol: 'analog'}}
 ];
 
 
 describe('analog segments decoder', () => {
-    tests.forEach(({name, segments}) => runTestsSequence(name, routs, segments));
+    tests.forEach(({name, segments}) => runTestsSequence(name, routes, segments));
 });

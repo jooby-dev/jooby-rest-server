@@ -143,10 +143,10 @@ const tests = [
     }
 ];
 
-const routs = [
+const routes = [
     {url: '/v1/encoder/obisObserver'},
     {url: '/v1/encoder', requestExtension: {protocol: 'obisObserver'}}
 ];
 
 
-runTestsSequence('obisObserver encoder', routs, tests);
+runTestsSequence('obisObserver encoder', routes, tests);

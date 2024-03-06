@@ -68,10 +68,10 @@ const tests = [
     }
 ];
 
-const routs = [
+const routes = [
     {url: '/v1/encoder/mtxLora'},
     {url: '/v1/encoder', requestExtension: {protocol: 'mtxLora'}}
 ];
 
 
-runTestsSequence('mtxLora encoder', routs, tests);
+runTestsSequence('mtxLora encoder', routes, tests);

@@ -165,10 +165,10 @@ const tests = [
     }
 ];
 
-const routs = [
+const routes = [
     {url: '/v1/decoder/obisObserver'},
     {url: '/v1/decoder', requestExtension: {protocol: 'obisObserver'}}
 ];
 
 
-runTestsSequence('obisObserver decoder', routs, tests);
+runTestsSequence('obisObserver decoder', routes, tests);

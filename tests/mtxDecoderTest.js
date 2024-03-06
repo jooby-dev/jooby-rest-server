@@ -259,10 +259,10 @@ const tests = [
     }
 ];
 
-const routs = [
+const routes = [
     {url: '/v1/decoder/mtx'},
     {url: '/v1/decoder', requestExtension: {protocol: 'mtx'}}
 ];
 
 
-runTestsSequence('mtx decoder', routs, tests);
+runTestsSequence('mtx decoder', routes, tests);

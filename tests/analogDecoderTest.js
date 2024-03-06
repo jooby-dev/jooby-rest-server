@@ -159,10 +159,10 @@ const tests = [
     }
 ];
 
-const routs = [
+const routes = [
     {url: '/v1/decoder/analog'},
     {url: '/v1/decoder', requestExtension: {protocol: 'analog'}}
 ];
 
 
-runTestsSequence('analog decoder', routs, tests);
+runTestsSequence('analog decoder', routes, tests);

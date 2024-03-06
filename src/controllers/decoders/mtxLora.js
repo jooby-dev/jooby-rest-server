@@ -18,11 +18,7 @@ const processMtxBuffer = ( data, options ) => {
  * @this fastify.FastifyInstance
  */
 export default function decode ( {body}, reply ) {
-    const {
-        bytes,
-        bytesConversionFormat,
-        response
-    } = body;
+    const {bytes, bytesConversionFormat, response} = body;
     const mtxMessages = [];
 
     try {

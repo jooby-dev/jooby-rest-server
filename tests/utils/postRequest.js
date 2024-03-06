@@ -7,10 +7,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 const post = async ( url, request = {} ) => {
     try {
-        return await axios.post(
-            `${url}`,
-            request
-        );
+        return await axios.post(`${url}`, request);
     } catch ( error ) {
         return error;
     }
