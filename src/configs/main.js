@@ -10,8 +10,13 @@ const http = {
     port: env.HTTP_PORT || 3000
 };
 
+const auth = {
+    apiKey: env.API_KEY
+};
+
 
 export {
     pino,
-    http
+    http,
+    auth
 };

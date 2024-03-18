@@ -5,6 +5,7 @@ import {pino as configPino, http as configHTTP} from './configs/main.js';
 // plugins
 import fastifyPrintRoutes from 'fastify-print-routes';
 import errorHandler from './plugins/error.handler.js';
+import validateApiKey from './plugins/validate.api.key.js';
 
 // reply plugins
 import replySendError from './plugins/reply/send.error.js';
@@ -24,6 +25,7 @@ fastify.register(fastifyPrintRoutes, {useColors: configPino.transport.options.co
 
 // custom plugins
 fastify.register(errorHandler);
+fastify.register(validateApiKey);
 
 // reply decorators
 fastify.register(replySendError);

@@ -61,12 +61,15 @@ docker run \
 
 Available environment variables:
 
-| Name        | Default value | Description                                                                                               |
-| ----------- | ------------- | --------------------------------------------------------------------------------------------------------- |
-| `NODE_ENV`  |               | node environment setup                                                                                    |
-| `LOG_LEVEL` | `info`        | [pino log levels](https://github.com/pinojs/pino/blob/master/docs/api.md#loggerlevel-string-gettersetter) |
-| `HTTP_HOST` | `0.0.0.0`     |                                                                                                           |
-| `HTTP_PORT` | `3000`        |                                                                                                           |
+| Name                      | Default value | Description                                                                                               |
+| ------------------------- | ------------- | --------------------------------------------------------------------------------------------------------- |
+| `NODE_ENV`                |               | node environment setup                                                                                    |
+| `LOG_LEVEL`               | `info`        | [pino log levels](https://github.com/pinojs/pino/blob/master/docs/api.md#loggerlevel-string-gettersetter) |
+| `HTTP_HOST`               | `0.0.0.0`     |                                                                                                           |
+| `HTTP_PORT`               | `3000`        |                                                                                                           |
+| `API_KEY`                 |               | if set, checks all requests with header validation for the presence of the specified value                |
+| `CHIRPSTACK_REST_API_URL` |               | [ChirpStack REST API url](https://github.com/chirpstack/chirpstack-rest-api)                              |
+| `CHIRPSTACK_API_KEY`      |               | ChirpStack API KEY generated from admin panel                                                             |
 
 ### Routes
 
