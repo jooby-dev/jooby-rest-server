@@ -4,11 +4,11 @@ import {pino as configPino, http as configHTTP} from './configs/main.js';
 
 // plugins
 import fastifyPrintRoutes from 'fastify-print-routes';
-import errorHandler from './plugins/error.handler.js';
-import validateApiKey from './plugins/validate.api.key.js';
+import errorHandler from './plugins/errorHandler.js';
+import validateApiKey from './plugins/validateApiKey.js';
 
 // reply plugins
-import replySendError from './plugins/reply/send.error.js';
+import replySendError from './plugins/reply/sendError.js';
 
 import initRoutes from './routes/v1/index.js';
 import {stopCollectorsCleaner} from './controllers/utils/collectorsCleaner.js';
