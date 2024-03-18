@@ -1,6 +1,7 @@
+import analog from './analog.js';
+import chirpstack from './chirpstack.js';
 import decoder from './decoder.js';
 import encoder from './encoder.js';
-import analog from './analog.js';
 import mtx from './mtx.js';
 import mtxLora from './mtxLora.js';
 import obisObserver from './obisObserver.js';
@@ -12,9 +13,10 @@ export default async fastify => {
         reply.type('text/plain').send('I\'m alive!');
     });
 
+    analog(fastify);
+    chirpstack(fastify);
     decoder(fastify);
     encoder(fastify);
-    analog(fastify);
     mtx(fastify);
     mtxLora(fastify);
     obisObserver(fastify);
