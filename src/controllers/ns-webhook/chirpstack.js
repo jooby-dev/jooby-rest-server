@@ -1,4 +1,5 @@
-import {analog, mtxLora, utils, constants} from '@jooby-dev/jooby-codec/index.js';
+import {analog, mtxLora, utils} from '@jooby-dev/jooby-codec/index.js';
+import {DOWNLINK, UPLINK} from '@jooby-dev/jooby-codec/constants/directions.js';
 import fetch from 'node-fetch';
 
 import * as protocols from '../../constants/protocols.js';
@@ -6,7 +7,6 @@ import config from '../../configs/chirpstack.js';
 import errors from '../../errors.js';
 
 
-const {DOWNLINK, UPLINK} = constants.directions;
 const eventMap = {
     txack: DOWNLINK,
     up: UPLINK
