@@ -128,7 +128,7 @@ const segment3 = {
                 {
                     id: 121,
                     name: 'GetDayMaxPower',
-                    date: {year: 24, month: 1, day: 8},
+                    date: {year: 24, month: 1, date: 8},
                     '1.6.1': {hours: 1, minutes: 29, power: 8},
                     '3.6.1': {hours: 0, minutes: 26, power: 8},
                     '4.6.1': {hours: 0, minutes: 29, power: 8},

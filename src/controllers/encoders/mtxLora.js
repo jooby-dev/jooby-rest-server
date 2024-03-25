@@ -43,7 +43,6 @@ export default function encode ( {body}, reply ) {
             bytesConversionFormat,
             direction,
             framingFormat,
-            messageId,
             response
         } = body;
 
@@ -63,10 +62,10 @@ export default function encode ( {body}, reply ) {
             mtxCommands = direction === directions.UPLINK
                 ? constructUplinkMtxCommands(commands)
                 : constructDownlinkMtxCommands(commands);
-            accessLevel = body.accessLevel;
+            accessLevel = body.accessLevel ?? accessLevels.UNENCRYPTED;
         }
 
-        const mtxBytes = mtxLora.message.toBytes(messageId, mtxCommands, {accessLevel, ...body});
+        const mtxBytes = mtxLora.message.toBytes(mtxCommands, {accessLevel, ...body});
         const dataSegmentCommands = splitBytesToDataSegments(mtxBytes, {maxSegmentSize: 50, ...body});
 
         const segmentBytes = dataSegmentCommands.map(
