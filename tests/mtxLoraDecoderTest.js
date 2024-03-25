@@ -124,7 +124,7 @@ const segment3 = {
                     date: {
                         year: 24,
                         month: 1,
-                        day: 8
+                        date: 8
                     },
                     tariffs: [
                         {

@@ -23,7 +23,7 @@
         "nodemon": "^3.0.1"
     },
     "dependencies": {
-        "@jooby-dev/jooby-codec": "2024.313.1021",
+        "@jooby-dev/jooby-codec": "2024.325.1353",
         "axios": "^1.6.7",
         "dotenv": "^16.0.0",
         "fastify": "^4.13.0",
