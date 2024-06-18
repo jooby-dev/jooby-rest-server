@@ -1,0 +1,373 @@
+openapi: 3.0.2
+info:
+    title: Jooby codec REST server
+    contact:
+        name: Infomir Support
+        url: https://infomir.com
+        email: support@infomir.com
+    version: "1"
+
+paths:
+    /v2/decoder/analog:
+        post:
+            description: Decode the analog data
+            requestBody:
+                description: Request to decode data
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            allOf:
+                                - $ref: "#/components/schemas/AnalogOptions"
+                                - type: object
+                                  properties:
+                                      data:
+                                          required: true,
+                                          $ref: "#/components/schemas/data"
+                                          example: "fh8CAEhy9n4="
+            responses:
+                200:
+                    description: Result of decoding
+                    content:
+                        application/json:
+                            schema:
+                                allOf:
+                                    - $ref: "#/components/schemas/AnalogOptions"
+                                    - type: object
+                                      properties:
+                                          data:
+                                              required: true,
+                                              $ref: "#/components/schemas/data"
+                                              example: "fh8CAEhy9n4="
+                                    - oneOf:
+                                          - $ref: "#/components/schemas/AnalogCommands"
+                                          - $ref: "#/components/schemas/AnalogFrames"
+    /v2/decoder/obisObserver:
+        post:
+            description: Decode the obis observer data
+            requestBody:
+                description: Request to decode data
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            allOf:
+                                - $ref: "#/components/schemas/Options"
+                                - type: object
+                                  properties:
+                                      data:
+                                          required: true,
+                                          $ref: "#/components/schemas/data"
+                                          example: "04050108080001"
+            responses:
+                200:
+                    description: Result of decoding
+                    content:
+                        application/json:
+                            schema:
+                                allOf:
+                                    - $ref: "#/components/schemas/Options"
+                                    - type: object
+                                      properties:
+                                          data:
+                                              required: true,
+                                              $ref: "#/components/schemas/data"
+                                              example: "04050108080001"
+                                    - oneOf:
+                                          - $ref: "#/components/schemas/ObisObserverCommands"
+                                          - $ref: "#/components/schemas/ObisObserverFrames"
+    /v2/decoder/mtx:
+        post:
+            description: Decode the mtx data
+            requestBody:
+                description: Request to decode data
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            allOf:
+                                - $ref: "#/components/schemas/Options"
+                                - type: object
+                                  properties:
+                                      data:
+                                          required: true,
+                                          $ref: "#/components/schemas/data"
+                                          example: "04050108080001"
+                                      aesKey:
+                                          description: 16 bytes aes key. Could be encoded as hex or base64 string.
+                                          type: string
+                                          example: "000102030405060708090a0b0c0e0f"
+            responses:
+                200:
+                    description: Result of decoding
+                    content:
+                        application/json:
+                            schema:
+                                allOf:
+                                    - $ref: "#/components/schemas/Options"
+                                    - type: object
+                                      properties:
+                                          data:
+                                              required: true,
+                                              $ref: "#/components/schemas/data"
+                                              example: "04050108080001"
+                                    - oneOf:
+                                          - $ref: "#/components/schemas/MtxLoraMessage"
+                                          - $ref: "#/components/schemas/MtxFrames"
+components:
+    schemas:
+        AnalogOptions:
+            description: Options for analog encoder and decoder
+            allOf:
+                - $ref: "#/components/schemas/Options"
+                - type: object
+                  properties:
+                      hardwareType:
+                          description: https://jooby-dev.github.io/jooby-codec/modules/analog.constants.hardwareTypes.html
+                          type: integer
+        Options:
+            description: Common options for encoder and decoder
+            type: object
+            properties:
+                deviceEUI:
+                    required: true,
+                    $ref: "#/components/schemas/deviceEUI"
+                direction:
+                    $ref: "#/components/schemas/directions"
+                framingFormat:
+                    $ref: "#/components/schemas/framingFormat"
+                encodingFormat:
+                    $ref: "#/components/schemas/encodingFormat"
+        Frame:
+            type: object
+            properties:
+                data:
+                    description: Binary frame data. Could be encoded as hex or base64 string.
+                    type: "string"
+                payload:
+                    description: Binary frame data after unstaffing procedure. Could be encoded as hex or base64 string.
+                    type: "string"
+        AnalogCommand:
+            $ref: "#/components/schemas/Command"
+            description: https://jooby-dev.github.io/jooby-codec/modules/analog.commands.html
+            example: { id: 543, name: "getLmicInfo" }
+        AnalogCommands:
+            type: object
+            properties:
+                commands:
+                    type: array
+                    description: https://jooby-dev.github.io/jooby-codec/modules/analog.commands.html
+                    items:
+                        $ref: "#/components/schemas/AnalogCommand"
+        AnalogDataSegmentCommand:
+            type: object
+            description: https://jooby-dev.github.io/jooby-codec/modules/analog.commands.downlink.dataSegment.html
+            example:
+                {
+                    id: 30,
+                    name: "dataSegment",
+                    parameters:
+                        {
+                            segmentationSessionId: 35,
+                            segmentIndex: 1,
+                            segmentsNumber: 1,
+                            isLast: true,
+                            data: "IxAQBwAAAA==",
+                            payload: "IxAQBwAAAA==",
+                        },
+                }
+        AnalogDataSegmentCommands:
+            type: object
+            properties:
+                commands:
+                    type: array
+                    description: https://jooby-dev.github.io/jooby-codec/modules/analog.commands.downlink.dataSegment.html
+                    items:
+                        $ref: "#/components/schemas/AnalogDataSegmentCommand"
+        AnalogFrames:
+            type: object
+            properties:
+                frames:
+                    type: array
+                    items:
+                        allOf:
+                            - $ref: "#/components/schemas/Frame"
+                            - $ref: "#/components/schemas/AnalogCommands"
+        ObisObserverCommand:
+            $ref: "#/components/schemas/Command"
+            description: https://jooby-dev.github.io/jooby-codec/modules/obisObserver.commands.html
+            example:
+                {
+                    id: 4,
+                    name: "getObserverCapabilities",
+                    parameters:
+                        {
+                            requestId: 1,
+                            maxMeterProfilesNumber: 8,
+                            maxMetersNumber: 8,
+                            maxObisProfilesNumber: 0,
+                            isMultiModeSupported: true,
+                        },
+                }
+        ObisObserverCommands:
+            type: object
+            properties:
+                commands:
+                    type: array
+                    description: https://jooby-dev.github.io/jooby-codec/modules/obisObserver.commands.html
+                    items:
+                        $ref: "#/components/schemas/ObisObserverCommand"
+        ObisObserverFrames:
+            type: object
+            properties:
+                frames:
+                    type: array
+                    items:
+                        allOf:
+                            - $ref: "#/components/schemas/Frame"
+                            - $ref: "#/components/schemas/ObisObserverCommands"
+        MtxCommand:
+            $ref: "#/components/schemas/Command"
+            description: https://jooby-dev.github.io/jooby-codec/modules/mtx.commands.html
+            example:
+                {
+                    id: 4,
+                    name: "getObserverCapabilities",
+                    parameters:
+                        {
+                            requestId: 1,
+                            maxMeterProfilesNumber: 8,
+                            maxMetersNumber: 8,
+                            maxObisProfilesNumber: 0,
+                            isMultiModeSupported: true,
+                        },
+                }
+        MtxMessage:
+            type: object
+            properties:
+                id:
+                    description: one byte message id
+                    type: integer
+                    required: true
+                accessLevel:
+                    description: https://jooby-dev.github.io/jooby-codec/modules/mtx.constants.accessLevels.html
+                    default: 0
+                commands:
+                    type: array
+                    required: true
+                    description: https://jooby-dev.github.io/jooby-codec/modules/mtx.commands.html
+                    items:
+                        $ref: "#/components/schemas/MtxCommand"
+        MtxLoraMessage:
+            type: object
+            properties:
+                commands:
+                    type: array
+                    description: https://jooby-dev.github.io/jooby-codec/modules/analog.commands.downlink.dataSegment.html
+                    items:
+                        $ref: "#/components/schemas/AnalogDataSegmentCommand"
+                assembledMessages:
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            segmentationSessionId:
+                                type: integer
+                                required: true
+                            data:
+                                description: Assembled binary data. Could be encoded as hex or base64 string.
+                                type: string
+                            message:
+                                $ref: "#/components/schemas/MtxMessage"
+        MtxFrame:
+            allOf:
+                - $ref: "#/components/schemas/Frame"
+                - type: object
+                  properties:
+                      header:
+                          type: object
+                          properties:
+                              type:
+                                  type: integer
+                                  description: https://jooby-dev.github.io/jooby-codec/modules/mtx.constants.frameTypes.html
+                                  default: 80
+                              src:
+                                  type: integer
+                                  default: 65534
+                              dst:
+                                  type: integer
+                                  default: 65535
+                      message:
+                          $ref: "#/components/schemas/MtxMessage"
+        MtxFrames:
+            type: object
+            properties:
+                frames:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/MtxFrame"
+
+        deviceEUI:
+            description: device EUI
+            type: string
+            example: 001a79881701b63c
+        message:
+            description: decoded content
+            type: object
+        data:
+            description: Binary data. Could be encoded as hex or base64 string.
+            type: string
+        protocols:
+            type: string
+            example: analog
+            enum:
+                - analog
+                - obisObserver
+                - mtx
+                - mtxLora
+            description: >
+                Protocol to use.
+                  - `analog`: analog protocol
+                  - `obisObserver`: obisObserver protocol
+                  - `mtx`: mtx protocol
+                  - `mtx3`: mtx3 protocol
+        directions:
+            type: string
+            example: uplink
+            default: auto
+            enum:
+                - downlink
+                - uplink
+                - auto
+            description: >
+                Direction of data transmission.
+                  - `downlink`: data flows to a device
+                  - `uplink`: data moves from a device
+                  - `auto`: transmission direction is automatically determined
+        framingFormat:
+            type: string
+            example: hdlc
+            default: none
+            enum:
+                - none
+                - hdlc
+            description: >
+                Indicates the format of the data.
+                  - `hdlc`: data framed in HDLC frame
+                  - `none`: data without framing
+        encodingFormat:
+            type: string
+            example: base64
+            default: base64
+            description: >
+                Specifies how the data is encoded.
+                  - `hex`: data is encoded in hexadecimal
+                  - `base64`: data is base64-encoded
+        Command:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    required: true
+                parameters:
+                    type: object
