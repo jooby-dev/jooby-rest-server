@@ -32,7 +32,7 @@ const tests = [
             assembledMessages: [{
                 segmentationSessionId: 35,
                 data: '23101107000000',
-                message: {
+                invalidMessage: {
                     error: 'Mismatch access levels.',
                     message: {
                         id: 35,
@@ -69,7 +69,7 @@ const tests = [
                     destination: 65535,
                     source: 1
                 },
-                message: {
+                invalidMessage: {
                     error: 'Mismatch access levels.',
                     message: {
                         id: 85,

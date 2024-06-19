@@ -41,9 +41,9 @@ const decodeMessage = ( bytes, options ) => {
     const {aesKeyBytes} = options;
     const message = fromBytes(bytes, {...options, aesKey: aesKeyBytes});
 
-    console.log(JSON.stringify(message));
-
-    return message.error ? prepareErrorMessage(message, options) : prepareMessage(message, options);
+    return message.error
+        ? {invalidMessage: prepareErrorMessage(message, options)}
+        : {message: prepareMessage(message, options)};
 };
 
 const prepareFrame = ( {header, bytes, payload}, options ) => ({
@@ -67,7 +67,7 @@ const decodeFrame = ( bytes, options ) => {
     const preparedFrame = prepareFrame(frame, options);
 
     return preparedFrame.payload
-        ? {...preparedFrame, message: decodeMessage(frame.payload, options)}
+        ? {...preparedFrame, ...decodeMessage(frame.payload, options)}
         : preparedFrame;
 };
 
@@ -90,7 +90,7 @@ const decodeLoraMessage = body => {
                 assembledMessages.push({
                     segmentationSessionId: mtxBuffer.segmentationSessionId,
                     data: getStringFromBytes(mtxBuffer.data, body),
-                    message: mtxMessage
+                    ...mtxMessage
                 });
             }
         }
