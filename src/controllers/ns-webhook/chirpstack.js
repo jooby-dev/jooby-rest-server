@@ -1,5 +1,5 @@
-import {analog, mtxLora, obisObserver, utils} from '@jooby-dev/jooby-codec/index.js';
-import {DOWNLINK, UPLINK} from '@jooby-dev/jooby-codec/constants/directions.js';
+import {analog, mtx, mtx3, obisObserver, utils} from '@jooby-dev/jooby-codec/index.js';
+import {DOWNLINK, UPLINK} from '../../constants/directions.js';
 import fetch from 'node-fetch';
 
 import * as protocols from '../../constants/protocols.js';
@@ -20,8 +20,11 @@ const messageDecoders = {
 
         return analog.message.fromBytes(bytes, {direction, hardwareType});
     },
-    [protocols.MTX_LORA]: ( {bytes, direction} ) => (
-        mtxLora.message.fromBytes(bytes, {direction})
+    [protocols.MTX]: ( {bytes, direction} ) => (
+        mtx.message.fromBytes(bytes, {direction})
+    ),
+    [protocols.MTX3]: ( {bytes, direction} ) => (
+        mtx3.message.fromBytes(bytes, {direction})
     ),
     // in obis observer each command has unique id, no necessary to pass direction
     [protocols.OBIS_OBSERVER]: ( {bytes} ) => (
