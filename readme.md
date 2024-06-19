@@ -17,10 +17,12 @@ It is a JavaScript application that provides a REST API using the [jooby-codec](
       - [Bytes conversion format](#bytes-conversion-format)
       - [Direction](#direction)
       - [Protocols](#protocols)
+      - [Dlms conversion](#dlms-conversion)
     - [Examples](#examples)
       - [Decoder](#decoder)
         - [Analog module](#analog-module)
         - [Mtx](#mtx)
+        - [Mtx (dlms)](#mtx-dlms)
         - [Obis observer](#obis-observer)
       - [Encoder](#encoder)
         - [Analog module](#analog-module-1)
@@ -71,14 +73,16 @@ Available environment variables:
 
 | Method | Path                       | Description                                                                              |
 | ------ | -------------------------- | ---------------------------------------------------------------------------------------- |
-| `POST` | `/v1/decoder`              | General decoder route. Requires to specify [protocol](#protocols) in the requests body.  |
-| `POST` | `/v1/decoder/analog`       | Decoder for the `analog` protocol based devices.                                         |
-| `POST` | `/v1/decoder/mtx`          | Decoder for the `mtx` protocol based devices.                                            |
-| `POST` | `/v1/decoder/obisObserver` | Decoder for the `obisObserver` protocol based devices.                                   |
-| `POST` | `/v1/encoder`              | General encoder route. Requires to specify [protocol](#protocols)  in the requests body. |
-| `POST` | `/v1/encoder/analog`       | Encoder for the `analog` protocol based devices.                                         |
-| `POST` | `/v1/encoder/mtx`          | Encoder for the `mtx` protocol based devices.                                            |
-| `POST` | `/v1/encoder/obisObserver` | Encoder for the `obisObserver` protocol based devices.                                   |
+| `POST` | `/v2/decoder`              | General decoder route. Requires to specify [protocol](#protocols) in the requests body.  |
+| `POST` | `/v2/decoder/analog`       | Decoder for the `analog` protocol based devices.                                         |
+| `POST` | `/v2/decoder/mtx`          | Decoder for the `mtx` protocol based devices.                                            |
+| `POST` | `/v2/decoder/mtx3`         | Decoder for the `mtx3` protocol based devices.                                           |
+| `POST` | `/v2/decoder/obisObserver` | Decoder for the `obisObserver` protocol based devices.                                   |
+| `POST` | `/v2/encoder`              | General encoder route. Requires to specify [protocol](#protocols)  in the requests body. |
+| `POST` | `/v2/encoder/analog`       | Encoder for the `analog` protocol based devices.                                         |
+| `POST` | `/v2/encoder/mtx`          | Encoder for the `mtx` protocol based devices.                                            |
+| `POST` | `/v2/encoder/mtx3`         | Encoder for the `mtx3` protocol based devices.                                           |
+| `POST` | `/v2/encoder/obisObserver` | Encoder for the `obisObserver` protocol based devices.                                   |
 
 
 ### POST request parameters
@@ -121,10 +125,16 @@ Example: `direction: 1`.
 | -------------- | ------------------------------------- |
 | `analog`       | `analog` protocol based devices       |
 | `mtx`          | `mtx` protocol based devices          |
+| `mtx3`         | `mtx3` protocol based devices         |
 | `obisObserver` | `obisObserver` protocol based devices |
 
 Example: `protocol: obisObserver`.
 
+#### Dlms conversion
+
+Valid for the `mtx` or `mtx3` based devices. OBIS codes used as fields in decoder reports.
+
+Example: `dlms: true`.
 
 ### Examples
 
@@ -135,27 +145,68 @@ Example: `protocol: obisObserver`.
 ```bash
 curl -X POST -H "Content-Type: application/json" \
     -d '{"deviceEUI": "001a79881701b63c", "direction": 1, "bytesConversionFormat": 1,"data": "1f020048"}' \
-    http://localhost:3000/v1/decoder/analog
+    http://localhost:3000/v2/decoder/analog
 ```
 
 ```bash
 curl -X POST -H "Content-Type: application/json" \
     -d '{"deviceEUI": "001a79881701b63c", "protocol": "analog", "direction": 1, "bytesConversionFormat": 1,"data": "1f020048"}' \
-    http://localhost:3000/v1/decoder
+    http://localhost:3000/v2/decoder
 ```
 
 ##### Mtx
 
 ```bash
 curl -X POST -H "Content-Type: application/json" \
-    -d '{"deviceEUI": "001a79881701b63c", "direction": 1, "bytesConversionFormat": 2,"data": "ARAQBwAAQg=="}' \
-    http://localhost:3000/v1/decoder/mtx
+    -d '{"deviceEUI": "001a79881701b63c", "direction": 1, "bytesConversionFormat": 2, "data": "HgkjkSMQEAcAAADU"}' \
+    http://localhost:3000/v2/decoder/mtx
 ```
 
 ```bash
 curl -X POST -H "Content-Type: application/json" \
-    -d '{"deviceEUI": "001a79881701b63c", "protocol": "mtx", "direction": 1, "bytesConversionFormat": 2,"data": "ARAQBwAAQg=="}' \
-    http://localhost:3000/v1/decoder
+    -d '{"deviceEUI": "001a79881701b63c", "protocol": "mtx", "direction": 1, "bytesConversionFormat": 2, "data": "HgkjkSMQEAcAAADU"}' \
+    http://localhost:3000/v2/decoder
+```
+
+```bash
+curl -X POST -H "Content-Type: application/json" \
+    -d '{"deviceEUI": "001a79881701b63c", "direction": 1, "data": "1e0902910210100700004296"}' \
+    http://localhost:3000/v2/decoder/mtx
+```
+
+```bash
+curl -X POST -H "Content-Type: application/json" \
+    -d '{"deviceEUI": "001a79881701b63c", "direction": 1, "framingFormat": 1,"data": "7e50fffffffe01101007000042f8427e"}' \
+    http://localhost:3000/v2/decoder/mtx
+```
+
+```bash
+curl -X POST -H "Content-Type: application/json" \
+    -d '{"deviceEUI": "001a79881701b63c", "direction": 1, "bytesConversionFormat": 2, "framingFormat": 1, "aesKey": "AAECAwQFBgcICQoLDA0ODw==", "data": "flD////+DH0zRwSm5eY3Aa03pdVxkhQ8Utkcfg=="}' \
+    http://localhost:3000/v2/decoder/mtx
+```
+
+##### Mtx (dlms)
+
+Segment 1:
+```bash
+curl -X POST -H "Content-Type: application/json" \
+    -d '{"deviceEUI": "001a79881701b63c", "direction": 2, "dlms": "true", "data": "1e28c4314d1010796430280fff011d00000008001a00000008001d00000008011d00000008001a00000033"}' \
+    http://localhost:3000/v2/decoder/mtx
+```
+
+Segment 2:
+```bash
+curl -X POST -H "Content-Type: application/json" \
+    -d '{"deviceEUI": "001a79881701b63c", "direction": 2, "dlms": "true", "data": "1e28c43208001d00000008011d00000008001a00000008001d00000008011d00000008001a00000008009d"}' \
+    http://localhost:3000/v2/decoder/mtx
+```
+
+Segment 3:
+```bash
+curl -X POST -H "Content-Type: application/json" \
+    -d '{"deviceEUI": "001a79881701b63c", "direction": 2, "dlms": "true", "data": "1e21c4b31d00000008013a00000008013a00000008013a00000008013a00000008000063d0b9e5e7"}' \
+    http://localhost:3000/v2/decoder/mtx
 ```
 
 ##### Obis observer
@@ -163,13 +214,19 @@ curl -X POST -H "Content-Type: application/json" \
 ```bash
 curl -X POST -H "Content-Type: application/json" \
     -d '{"deviceEUI": "001a79881701b63c", "data": "04050108080001"}' \
-    http://localhost:3000/v1/decoder/obisObserver
+    http://localhost:3000/v2/decoder/obisObserver
 ```
 
 ```bash
 curl -X POST -H "Content-Type: application/json" \
     -d '{"deviceEUI": "001a79881701b63c", "protocol": "obisObserver", "data": "04050108080001"}' \
-    http://localhost:3000/v1/decoder
+    http://localhost:3000/v2/decoder
+```
+
+```bash
+curl -X POST -H "Content-Type: application/json" \
+    -d '{"deviceEUI": "001a79881701b63c", "framingFormat": 1,"data": "7e04050108080001567c4e7e"}' \
+    http://localhost:3000/v2/decoder/obisObserver
 ```
 
 #### Encoder
@@ -179,39 +236,45 @@ curl -X POST -H "Content-Type: application/json" \
 ```bash
 curl -X POST -H "Content-Type: application/json" \
     -d '{"deviceEUI": "001a79881701b63c", "direction": 1, "commands": [{"id": 7}]}' \
-    http://localhost:3000/v1/encoder/analog
+    http://localhost:3000/v2/encoder/analog
 ```
 
 ```bash
 curl -X POST -H "Content-Type: application/json" \
     -d '{"deviceEUI": "001a79881701b63c", "protocol": "analog", "direction": 1, "commands": [{"id": 7}]}' \
-    http://localhost:3000/v1/encoder
+    http://localhost:3000/v2/encoder
 ```
 
 ##### Mtx
 
 ```bash
 curl -X POST -H "Content-Type: application/json" \
-    -d '{"deviceEUI": "001a79881701b63c", "direction": 1, "messageId": 2, "commands": [{"id": 7}]}' \
-    http://localhost:3000/v1/encoder/mtx
+    -d '{"deviceEUI": "001a79881701b63c", "direction": 1, "segmentationSessionId": 2, "message": {"id": 2, "commands":[{"id":7}]}}' \
+    http://localhost:3000/v2/encoder/mtx
 ```
 
 ```bash
 curl -X POST -H "Content-Type: application/json" \
-    -d '{"deviceEUI": "001a79881701b63c", "protocol": "mtx", "direction": 1, "messageId": 2, "commands": [{"id": 7}]}' \
-    http://localhost:3000/v1/encoder
+    -d '{"deviceEUI": "001a79881701b63c", "protocol": "mtx", "direction": 1, "segmentationSessionId": 2, "message": {"id": 2, "commands":[{"id":7}]}}' \
+    http://localhost:3000/v2/encoder
+```
+
+```bash
+curl -X POST -H "Content-Type: application/json" \
+    -d '{"deviceEUI": "001a79881701b63c", "framingFormat": 1, "direction": 1, "message": {"id": 2, "commands":[{"id":7}]}}' \
+    http://localhost:3000/v2/encoder/mtx
 ```
 
 ##### Obis observer
 
 ```bash
 curl -X POST -H "Content-Type: application/json" \
-    -d '{"deviceEUI": "001a79881701b63c", "commands":[{"requestId": 2, "id":5}]}' \
-    http://localhost:3000/v1/encoder/obisObserver
+    -d '{"deviceEUI": "001a79881701b63c", "commands":[{"id":5, "parameters": {"requestId": 2}}]}' \
+    http://localhost:3000/v2/encoder/obisObserver
 ```
 
 ```bash
 curl -X POST -H "Content-Type: application/json" \
-    -d '{"deviceEUI": "001a79881701b63c", "protocol": "obisObserver", "commands":[{"requestId": 2, "id":5}]}' \
-    http://localhost:3000/v1/encoder/obisObserver
+    -d '{"deviceEUI": "001a79881701b63c", "protocol": "obisObserver", "commands":[{"id":5, "parameters": {"requestId": 2}}]}' \
+    http://localhost:3000/v2/encoder/obisObserver
 ```
