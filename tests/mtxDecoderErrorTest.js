@@ -7,7 +7,7 @@ import {runTestsSequence} from './utils/runTestsSequence.js';
 
 const tests = [
     {
-        name: 'broken message',
+        name: 'invalid message',
         request: {
             deviceEUI: '001a79881701b63c',
             direction: DOWNLINK,
@@ -47,7 +47,7 @@ const tests = [
         }
     },
     {
-        name: 'broken frame',
+        name: 'hdlc frame, invalid message',
         request: {
             deviceEUI: '001a79881701b63c',
             direction: DOWNLINK,
@@ -79,6 +79,28 @@ const tests = [
                             name: 'getDateTime'
                         }]
                     }
+                }
+            }]
+        }
+    },
+    {
+        name: 'hdlc frame, invalid message',
+        request: {
+            deviceEUI: '001a79881701b63c',
+            direction: DOWNLINK,
+            framingFormat: HDLC,
+            data: '7e50ffff0001551010070000004f717e'
+        },
+        response: {
+            deviceEUI: '001a79881701b63c',
+            direction: DOWNLINK,
+            framingFormat: HDLC,
+            data: '7e50ffff0001551010070000004f717e',
+            frames: [{
+                error: 'Mismatch CRC.',
+                frame: {
+                    data: '7e50ffff0001551010070000004f717e',
+                    payload: '50ffff000155101007000000'
                 }
             }]
         }
