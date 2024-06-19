@@ -6,30 +6,34 @@ import getStringFromBytes from '../../utils/getStringFromBytes.js';
 import errors from '../../errors.js';
 
 
-const prepareFrame = ( {bytes, payload}, options ) => ({
-    data: getStringFromBytes(bytes, options),
-    payload: getStringFromBytes(payload, options)
-});
-
 const decodeMessage = ( bytes, options ) => {
     const {payload, ...message} = decodeAnalogMessage(bytes, options);
 
     return message;
 };
 
+const prepareFrame = ( {bytes, payload}, options ) => ({
+    data: getStringFromBytes(bytes, options),
+    ...(payload && {payload: getStringFromBytes(payload, options)})
+});
+
+const processErrorFrame = ( {error, frame}, options ) => ({
+    error,
+    frame: prepareFrame(frame, options)
+});
+
 const decodeFrame = ( bytes, options ) => {
     const frame = frameFromBytes(bytes);
 
-    if ( 'payload' in frame ) {
-        return {
-            ...prepareFrame(frame, options),
-            ...decodeMessage(frame.payload, options)
-        };
+    if ( frame.error ) {
+        return processErrorFrame(frame, options);
     }
 
-    return {
-        ...prepareFrame(frame, options)
-    };
+    const preparedFrame = prepareFrame(frame, options);
+
+    return preparedFrame.payload
+        ? {...preparedFrame, ...decodeMessage(frame.payload, options)}
+        : preparedFrame;
 };
 
 

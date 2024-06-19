@@ -25,22 +25,26 @@ const decodeMessage = ( bytes, options ) => {
 
 const prepareFrame = ( {bytes, payload}, options ) => ({
     data: getStringFromBytes(bytes, options),
-    payload: getStringFromBytes(payload, options)
+    ...(payload && {payload: getStringFromBytes(payload, options)})
+});
+
+const processErrorFrame = ( {error, frame}, options ) => ({
+    error,
+    frame: prepareFrame(frame, options)
 });
 
 const decodeFrame = ( bytes, options ) => {
     const frame = frameFromBytes(bytes, obisObserverFrameDataBits);
 
-    if ( 'payload' in frame ) {
-        return {
-            ...prepareFrame(frame, options),
-            ...decodeMessage(frame.payload, options)
-        };
+    if ( frame.error ) {
+        return processErrorFrame(frame, options);
     }
 
-    return {
-        data: getStringFromBytes(bytes, options)
-    };
+    const preparedFrame = prepareFrame(frame, options);
+
+    return frame.payload
+        ? {...preparedFrame, ...decodeMessage(frame.payload, options)}
+        : preparedFrame;
 };
 
 /**

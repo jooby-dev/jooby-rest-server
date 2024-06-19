@@ -7,12 +7,20 @@ import {prepareCommands} from '../../utils/preparations.js';
 import getStringFromBytes from '../../../utils/getStringFromBytes.js';
 
 
-export const decodeAnalogMessage = ( bytes, options ) => {
+const processError = ( message, options ) => {
+    const {direction} = options;
+    const {error, message: {commands}} = message;
+    const preparedCommands = prepareCommands(
+        direction === directions.DOWNLINK ? downlinkById : uplinkById,
+        commands,
+        options
+    );
+
+    return {error, message: {commands: preparedCommands}};
+};
+
+const processCommands = ( {commands}, options ) => {
     const {direction, deviceEUI} = options;
-    const message = direction === directions.DOWNLINK
-        ? messages.downlink.fromBytes(bytes, options)
-        : messages.uplink.fromBytes(bytes, options);
-    const {commands} = message;
     const payloadArray = [];
 
     for ( let index = 0; index < commands.length; index++ ) {
@@ -43,4 +51,13 @@ export const decodeAnalogMessage = ( bytes, options ) => {
     return payloadArray.length === 0
         ? {commands: preparedCommands}
         : {commands: preparedCommands, payload: payloadArray};
+};
+
+export const decodeAnalogMessage = ( bytes, options ) => {
+    const {direction} = options;
+    const message = direction === directions.DOWNLINK
+        ? messages.downlink.fromBytes(bytes, options)
+        : messages.uplink.fromBytes(bytes, options);
+
+    return message.error ? processError(message, options) : processCommands(message, options);
 };

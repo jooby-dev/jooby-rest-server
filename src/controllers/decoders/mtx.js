@@ -1,7 +1,6 @@
 import * as mtx from '@jooby-dev/jooby-codec/mtx/message/index.js';
 import * as mtx3 from '@jooby-dev/jooby-codec/mtx3/message/index.js';
 import {downlinkById, uplinkById} from '@jooby-dev/jooby-codec/mtx/commands/index.js';
-import {accessLevels} from '@jooby-dev/jooby-codec/mtx/constants/index.js';
 import {fromBytes as frameFromBytes} from '@jooby-dev/jooby-codec/mtx/utils/frame.js';
 import {MTXLORA} from '@jooby-dev/jooby-codec/analog/constants/hardwareTypes.js';
 import {decodeAnalogMessage} from './utils/decodeAnalogMessage.js';
@@ -27,41 +26,49 @@ const prepareMtxCommands = ( commands, options ) => (
         options
     ));
 
+const prepareMessage = ( {messageId: id, accessLevel, commands}, options ) => ({
+    id,
+    accessLevel,
+    commands: prepareMtxCommands(commands, options)
+});
+
+const prepareErrorMessage = ( {error, message}, options ) => ({
+    error,
+    message: prepareMessage(message, options)
+});
+
 const decodeMessage = ( bytes, options ) => {
     const {aesKeyBytes} = options;
-    const {
-        messageId,
-        accessLevel = accessLevels.UNENCRYPTED,
-        commands
-    } = fromBytes(bytes, {...options, aesKey: aesKeyBytes});
+    const message = fromBytes(bytes, {...options, aesKey: aesKeyBytes});
 
-    return {
-        id: messageId,
-        accessLevel,
-        commands: prepareMtxCommands(commands, options)
-    };
+    console.log(JSON.stringify(message));
+
+    return message.error ? prepareErrorMessage(message, options) : prepareMessage(message, options);
 };
 
 const prepareFrame = ( {header, bytes, payload}, options ) => ({
-    header,
     data: getStringFromBytes(bytes, options),
-    payload: getStringFromBytes(payload, options)
+    ...(header && {header}),
+    ...(payload && {payload: getStringFromBytes(payload, options)})
 });
 
+const processErrorFrame = ( {error, frame}, options ) => ({
+    error,
+    frame: prepareFrame(frame, options)
+});
 
 const decodeFrame = ( bytes, options ) => {
     const frame = frameFromBytes(bytes);
 
-    if ( 'payload' in frame ) {
-        return {
-            ...prepareFrame(frame, options),
-            message: decodeMessage(frame.payload, options)
-        };
+    if ( frame.error ) {
+        return processErrorFrame(frame, options);
     }
 
-    return {
-        ...prepareFrame(frame, options)
-    };
+    const preparedFrame = prepareFrame(frame, options);
+
+    return preparedFrame.payload
+        ? {...preparedFrame, message: decodeMessage(frame.payload, options)}
+        : preparedFrame;
 };
 
 const decodeLoraMessage = body => {
