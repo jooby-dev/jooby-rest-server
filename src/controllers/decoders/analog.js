@@ -1,26 +1,39 @@
 import {decodeAnalogMessage} from './utils/decodeAnalogMessage.js';
-import {HDLC} from '../../constants/framingFormats.js';
+import {fromBytes as frameFromBytes} from '@jooby-dev/jooby-codec/utils/frame.js';
 import decodeFrames from './utils/decodeFrames.js';
-import {prepareCommands, prepareFrame} from '../utils/preparations.js';
+import {HDLC} from '../../constants/framingFormats.js';
+import getStringFromBytes from '../../utils/getStringFromBytes.js';
 import errors from '../../errors.js';
 
 
 const decodeMessage = ( bytes, options ) => {
-    const {isValid, commands} = decodeAnalogMessage(bytes, options);
+    const {payload, ...message} = decodeAnalogMessage(bytes, options);
 
-    return {
-        isValid,
-        commands: prepareCommands(commands, options)
-    };
+    return message;
 };
 
-const decodeFrame = ( frame, options ) => {
-    const message = decodeMessage(frame.content, options);
+const prepareFrame = ( {bytes, payload}, options ) => ({
+    data: getStringFromBytes(bytes, options),
+    ...(payload && {payload: getStringFromBytes(payload, options)})
+});
 
-    return {
-        ...prepareFrame(frame, options),
-        message
-    };
+const processErrorFrame = ( {error, frame}, options ) => ({
+    error,
+    frame: prepareFrame(frame, options)
+});
+
+const decodeFrame = ( bytes, options ) => {
+    const frame = frameFromBytes(bytes);
+
+    if ( frame.error ) {
+        return processErrorFrame(frame, options);
+    }
+
+    const preparedFrame = prepareFrame(frame, options);
+
+    return preparedFrame.payload
+        ? {...preparedFrame, ...decodeMessage(frame.payload, options)}
+        : preparedFrame;
 };
 
 
@@ -38,7 +51,7 @@ export default function decode ( request, reply ) {
     try {
         const result = framingFormat === HDLC
             ? {frames: decodeFrames(body).map(frame => decodeFrame(frame, body))}
-            : {message: decodeMessage(bytes, body)};
+            : decodeMessage(bytes, body);
 
         reply.send({
             ...response,
