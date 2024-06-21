@@ -15,7 +15,6 @@ const runTest = async ( {url, requestExtension}, {name, request, response} ) => 
 
 const runRouteTest = async ( route, tests ) => (
     describe(route.url, async () => {
-        // eslint-disable-next-line no-restricted-syntax
         for await ( const test of tests ) {
             await runTest(route, test);
         }
@@ -24,7 +23,6 @@ const runRouteTest = async ( route, tests ) => (
 
 const runRoutesTests = async ( name, routes, tests ) => {
     describe(name, async () => {
-        // eslint-disable-next-line no-restricted-syntax
         for ( const route of routes ) {
             await runRouteTest(route, tests);
         }
@@ -49,7 +47,6 @@ export const runTestsSuites = async suites => {
         await fastify.ready();
     });
 
-    // eslint-disable-next-line no-restricted-syntax
     for ( const {name, routes, tests} of suites ) {
         await runRoutesTests(name, routes, tests);
     }
