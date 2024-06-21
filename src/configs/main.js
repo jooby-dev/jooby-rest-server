@@ -15,9 +15,14 @@ const auth = {
     apiKey: env.API_KEY
 };
 
+const integrations = {
+    fileName: 'integrations.json' || env.INTEGRATIONS_FILENAME
+};
+
 
 export {
     pino,
     http,
-    auth
+    auth,
+    integrations
 };

@@ -1,6 +1,7 @@
 # Jooby REST Server
 
-It is a JavaScript application that provides a REST API using the [jooby-codec](https://github.com/jooby-dev/jooby-codec) library. This application allows you to easily decode data.
+It is a JavaScript application that provides a REST API using the [jooby-codec](https://github.com/jooby-dev/jooby-codec) library.
+This application allows you to easily decode data.
 
 
 ## Table of Contents
@@ -28,6 +29,7 @@ It is a JavaScript application that provides a REST API using the [jooby-codec](
         - [Analog module](#analog-module-1)
         - [Mtx](#mtx-1)
         - [Obis observer](#obis-observer-1)
+    - [Integrations](#integrations)
 
 
 ## Usage
@@ -43,7 +45,8 @@ npm start
 
 ### Running with Docker
 
-You can also run `jooby-rest-server` using Docker. Ensure you have Docker installed on your machine, and then use the following command:
+You can also run `jooby-rest-server` using Docker.
+Ensure you have Docker installed on your machine, and then use the following command:
 
 ```bash
 docker pull joobydev/jooby-rest-server
@@ -59,15 +62,16 @@ docker run \
 
 Available environment variables:
 
-| Name                      | Default value | Description                                                                                               |
-| ------------------------- | ------------- | --------------------------------------------------------------------------------------------------------- |
-| `NODE_ENV`                |               | node environment setup                                                                                    |
-| `LOG_LEVEL`               | `info`        | [pino log levels](https://github.com/pinojs/pino/blob/master/docs/api.md#loggerlevel-string-gettersetter) |
-| `HTTP_HOST`               | `0.0.0.0`     |                                                                                                           |
-| `HTTP_PORT`               | `3000`        |                                                                                                           |
-| `API_KEY`                 |               | if set, checks all requests with header validation for the presence of the specified value                |
-| `CHIRPSTACK_REST_API_URL` |               | [ChirpStack REST API url](https://github.com/chirpstack/chirpstack-rest-api)                              |
-| `CHIRPSTACK_API_KEY`      |               | ChirpStack API KEY generated from admin panel                                                             |
+| Name                      | Default value       | Description                                                                                               |
+| ------------------------- | ------------------- | --------------------------------------------------------------------------------------------------------- |
+| `NODE_ENV`                |                     | node environment setup                                                                                    |
+| `LOG_LEVEL`               | `info`              | [pino log levels](https://github.com/pinojs/pino/blob/master/docs/api.md#loggerlevel-string-gettersetter) |
+| `HTTP_HOST`               | `0.0.0.0`           |                                                                                                           |
+| `HTTP_PORT`               | `3000`              |                                                                                                           |
+| `API_KEY`                 |                     | if set, checks all requests with header validation for the presence of the specified value                |
+| `CHIRPSTACK_REST_API_URL` |                     | [ChirpStack REST API url](https://github.com/chirpstack/chirpstack-rest-api)                              |
+| `CHIRPSTACK_API_KEY`      |                     | ChirpStack API KEY generated from admin panel                                                             |
+| `INTEGRATIONS_FILENAME`   | `integrations.json` | [Integrations](#integrations) data file                                                                   |
 
 ### Routes
 
@@ -277,4 +281,23 @@ curl -X POST -H "Content-Type: application/json" \
 curl -X POST -H "Content-Type: application/json" \
     -d '{"deviceEUI": "001a79881701b63c", "protocol": "obisObserver", "commands":[{"id":5, "parameters": {"requestId": 2}}]}' \
     http://localhost:3000/v2/encoder/obisObserver
+```
+
+### Integrations
+
+Config file:
+
+```json
+[
+    {
+        "name": "chirp",
+        "type": "HTTP",
+        "url": "http://10.0.0.100:4000/v2/test",
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer FjgQGX53wC0qcCA0UuwrW8IX98+xwB5q90g1/cp1CBpqSZt0"
+        },
+        "route": "/decoder/analog"
+    }
+]
 ```

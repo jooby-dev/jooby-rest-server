@@ -1,6 +1,10 @@
 import './setup.js';
+
+import {readFile} from 'fs/promises';
 import fastifyFactory from 'fastify';
-import {pino as configPino, http as configHTTP} from './configs/main.js';
+import axios from 'axios';
+
+import {pino as configPino, http as configHTTP, integrations as configIntegrations} from './configs/main.js';
 
 // plugins
 import fastifyPrintRoutes from 'fastify-print-routes';
@@ -13,6 +17,8 @@ import replySendError from './plugins/reply/sendError.js';
 import initRoutes from './routes/v2/index.js';
 import {stopCollectorsCleaner} from './controllers/utils/collectorsCleaner.js';
 
+
+const integrations = JSON.parse(await readFile(configIntegrations.fileName, 'utf8'));
 
 let requestIndex = 1;
 
@@ -42,6 +48,33 @@ fastify
 
 fastify.addHook('onClose', (instance, done) => {
     stopCollectorsCleaner();
+    done();
+});
+
+fastify.addHook('onSend', (request, reply, payload, done) => {
+    // need to save it for later
+    reply.payload = reply.payload || payload;
+
+    done();
+});
+
+fastify.addHook('onResponse', (request, reply, done) => {
+    // find match
+    integrations.forEach(integration => {
+        if ( integration.type.toUpperCase() === 'HTTP' ) {
+            if ( request.url.includes(integration.route) ) {
+                // post to the integration
+                axios.post(
+                    integration.url,
+                    reply.payload,
+                    {headers: integration.headers || {}}
+                );
+
+                fastify.log.info('integration %s: sent to %s %s', integration.name, integration.url, reply.payload);
+            }
+        }
+    });
+
     done();
 });
 
