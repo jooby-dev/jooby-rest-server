@@ -1,4 +1,4 @@
-import fastify from '../../src/index.js';
+import {getFastify} from '../../src/fastify.js';
 import postRequest from './postRequest.js';
 import {describe, it, before, after} from 'node:test';
 import assert from 'node:assert';
@@ -31,7 +31,11 @@ const runRoutesTests = async ( name, routes, tests ) => {
 
 
 export const runTestsSuite = async ( name, routes, tests ) => {
+    let fastify;
+
     before(async () => {
+        fastify = getFastify();
+
         await fastify.ready();
     });
 
@@ -43,7 +47,11 @@ export const runTestsSuite = async ( name, routes, tests ) => {
 };
 
 export const runTestsSuites = async suites => {
+    let fastify;
+
     before(async () => {
+        fastify = getFastify();
+
         await fastify.ready();
     });
 
