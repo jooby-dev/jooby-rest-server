@@ -2,7 +2,7 @@ import {UNENCRYPTED} from '@jooby-dev/jooby-codec/mtx/constants/accessLevels.js'
 import {UPLINK} from '../src/constants/directions.js';
 import {MTX} from '../src/constants/protocols.js';
 import {describe} from 'node:test';
-import {runTestsSuite} from './utils/runTestsSuite.js';
+import {runTestsSuites} from './utils/runTestsSuite.js';
 
 
 const segment1 = {
@@ -159,23 +159,26 @@ const segment3 = {
     }
 };
 
-const tests = [
-    {
-        name: 'segments: 1, 2, 3 (last)',
-        segments: [segment1, segment2, segment3]
-    },
-    {
-        name: 'segments: 2, 1, 3 (last)',
-        segments: [segment2, segment1, segment3]
-    }
-];
 
 const routes = [
     {url: `/v2/decoder/${MTX}`},
     {url: '/v2/decoder', requestExtension: {protocol: MTX}}
 ];
 
+const tests = [
+    {
+        name: 'segments: 1, 2, 3 (last)',
+        routes,
+        tests: [segment1, segment2, segment3]
+    },
+    {
+        name: 'segments: 2, 1, 3 (last)',
+        routes,
+        tests: [segment2, segment1, segment3]
+    }
+];
+
 
 describe('mtxLora decoder', () => {
-    tests.forEach(({name, segments}) => runTestsSuite(name, routes, segments));
+    runTestsSuites(tests);
 });
