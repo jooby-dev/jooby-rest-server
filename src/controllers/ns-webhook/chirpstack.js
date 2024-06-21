@@ -100,6 +100,9 @@ export default async function hook ( request, reply ) {
 
         this.log.info('device: %s, decoded data: %j', devEui, result);
 
+        // save for later push to integrations
+        reply.payload = JSON.stringify(result);
+
         reply.status(200).send('ok');
     } catch ( error ) {
         reply.sendError(errors.BAD_REQUEST, error);
