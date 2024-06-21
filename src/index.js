@@ -3,7 +3,7 @@ import './setup.js';
 import {getFastify} from './fastify.js';
 
 
-const fastify = getFastify();
+const fastify = await getFastify();
 
 
 export default fastify;

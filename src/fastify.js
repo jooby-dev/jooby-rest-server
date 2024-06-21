@@ -18,10 +18,8 @@ import initRoutes from './routes/v2/index.js';
 import {stopCollectorsCleaner} from './controllers/utils/collectorsCleaner.js';
 
 
-const integrations = JSON.parse(await readFile(configIntegrations.fileName, 'utf8'));
-
-
-export const getFastify = () => {
+export const getFastify = async () => {
+    const integrations = JSON.parse(await readFile(configIntegrations.fileName, 'utf8'));
     let requestIndex = 1;
 
     const fastify = fastifyFactory({

@@ -15,7 +15,7 @@ const runTest = async ( {url, requestExtension}, {name, request, response} ) => 
 
 const runRouteTest = async ( route, tests ) => (
     describe(route.url, async () => {
-        for await ( const test of tests ) {
+        for ( const test of tests ) {
             await runTest(route, test);
         }
     })
@@ -34,7 +34,7 @@ export const runTestsSuite = async ( name, routes, tests ) => {
     let fastify;
 
     before(async () => {
-        fastify = getFastify();
+        fastify = await getFastify();
 
         await fastify.ready();
     });
@@ -50,7 +50,7 @@ export const runTestsSuites = async suites => {
     let fastify;
 
     before(async () => {
-        fastify = getFastify();
+        fastify = await getFastify();
 
         await fastify.ready();
     });
