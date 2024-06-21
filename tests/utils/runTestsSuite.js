@@ -44,12 +44,15 @@ export const runTestsSuite = async ( name, routes, tests ) => {
     });
 };
 
-export const runTestsSuites = suites => {
+export const runTestsSuites = async suites => {
     before(async () => {
         await fastify.ready();
     });
 
-    suites.forEach(({name, routes, tests}) => runRoutesTests(name, routes, tests));
+    // eslint-disable-next-line no-restricted-syntax
+    for ( const {name, routes, tests} of suites ) {
+        await runRoutesTests(name, routes, tests);
+    }
 
     after(async () => {
         await fastify.close();
