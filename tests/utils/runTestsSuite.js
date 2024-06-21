@@ -13,23 +13,31 @@ const runTest = async ( {url, requestExtension}, {name, request, response} ) => 
     });
 };
 
-const runRouteTest = ( route, tests ) => (
-    describe(route.url, async () => tests.forEach( test => runTest(route, test)))
+const runRouteTest = async ( route, tests ) => (
+    describe(route.url, async () => {
+        // eslint-disable-next-line no-restricted-syntax
+        for await ( const test of tests ) {
+            await runTest(route, test);
+        }
+    })
 );
 
-const runRoutesTests = ( name, routes, tests ) => {
+const runRoutesTests = async ( name, routes, tests ) => {
     describe(name, async () => {
-        routes.forEach(route => runRouteTest(route, tests));
+        // eslint-disable-next-line no-restricted-syntax
+        for ( const route of routes ) {
+            await runRouteTest(route, tests);
+        }
     });
 };
 
 
-export const runTestsSuite = ( name, routes, tests ) => {
+export const runTestsSuite = async ( name, routes, tests ) => {
     before(async () => {
         await fastify.ready();
     });
 
-    runRoutesTests(name, routes, tests);
+    await runRoutesTests(name, routes, tests);
 
     after(async () => {
         await fastify.close();
