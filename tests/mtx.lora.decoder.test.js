@@ -2,7 +2,7 @@ import {UNENCRYPTED} from '@jooby-dev/jooby-codec/mtx/constants/accessLevels.js'
 import {UPLINK} from '../src/constants/directions.js';
 import {MTX} from '../src/constants/protocols.js';
 import {describe} from 'node:test';
-import {runTestsSequence} from './utils/runTestsSequence.js';
+import {runTestsSuites} from './utils/runTestsSuite.js';
 
 
 const segment1 = {
@@ -10,13 +10,11 @@ const segment1 = {
     request: {
         deviceEUI: '001a79881701b63c',
         direction: UPLINK,
-        dlms: true,
         data: '1e28c4314d1010796430280fff011d00000008001a00000008001d00000008011d00000008001a00000033'
     },
     response: {
         deviceEUI: '001a79881701b63c',
         direction: UPLINK,
-        dlms: true,
         data: '1e28c4314d1010796430280fff011d00000008001a00000008001d00000008011d00000008001a00000033',
         commands: [{
             id: 30,
@@ -37,13 +35,11 @@ const segment2 = {
     request: {
         deviceEUI: '001a79881701b63c',
         direction: UPLINK,
-        dlms: true,
         data: '1e28c43208001d00000008011d00000008001a00000008001d00000008011d00000008001a00000008009d'
     },
     response: {
         deviceEUI: '001a79881701b63c',
         direction: UPLINK,
-        dlms: true,
         data: '1e28c43208001d00000008011d00000008001a00000008001d00000008011d00000008001a00000008009d',
         commands: [{
             id: 30,
@@ -64,28 +60,27 @@ const segment3 = {
     request: {
         deviceEUI: '001a79881701b63c',
         direction: UPLINK,
-        dlms: true,
         data: '1e21c4b31d00000008013a00000008013a00000008013a00000008013a00000008000063d0b9e5e7'
     },
     response: {
         deviceEUI: '001a79881701b63c',
         direction: UPLINK,
-        dlms: true,
         data: '1e21c4b31d00000008013a00000008013a00000008013a00000008013a00000008000063d0b9e5e7',
         commands: [
             {
                 id: 30,
                 name: 'dataSegment',
-                parameters: {
+                parameters:
+                {
                     segmentationSessionId: 196,
                     segmentIndex: 3,
                     segmentsNumber: 3,
                     isLast: true,
                     data: '1d00000008013a00000008013a00000008013a00000008013a000000080000',
-                    payload: `4d1010796430280fff011d00000008001a00000008001 \
-                        d00000008011d00000008001a00000008001d00000008011d00000008 \
-                        001a00000008001d00000008011d00000008001a00000008001d00000 \
-                        008013a00000008013a00000008013a00000008013a000000080000`.replace(/\s/g, '')
+                    payload: `4d1010796430280fff011d00000008001a00000008001d00000008011d000000 \
+                        08001a00000008001d00000008011d00000008001a00000008001d0000000801 \
+                        1d00000008001a00000008001d00000008013a00000008013a00000008013a00 \
+                        000008013a000000080000`.replace(/\s/g, '')
                 }
             },
             {
@@ -112,11 +107,10 @@ const segment3 = {
             }
         ],
         assembledMessages: [{
-            data: `4d1010796430280fff011d00000008001a00000008001 \
-                d00000008011d00000008001a00000008001d00000008011 \
-                d00000008001a00000008001d00000008011d00000008001 \
-                a00000008001d00000008013a00000008013a00000008013 \
-                a00000008013a000000080000`.replace(/\s/g, ''),
+            data: `4d1010796430280fff011d00000008001a00000008001d00000008011 \
+                d00000008001a00000008001d00000008011d00000008001a00000008001d000
+                00008011d00000008001a00000008001d00000008013a00000008013a0000000 \
+                8013a00000008013a000000080000`.replace(/\s/g, ''),
             segmentationSessionId: 196,
             message: {
                 id: 77,
@@ -126,23 +120,37 @@ const segment3 = {
                         id: 121,
                         name: 'getDayMaxPower',
                         parameters: {
-                            date: {year: 24, month: 1, date: 8},
-                            '1.6.1': {hours: 1, minutes: 29, power: 8},
-                            '3.6.1': {hours: 0, minutes: 26, power: 8},
-                            '4.6.1': {hours: 0, minutes: 29, power: 8},
-                            '2.6.1': {hours: 1, minutes: 58, power: 8},
-                            '1.6.2': {hours: 1, minutes: 29, power: 8},
-                            '3.6.2': {hours: 0, minutes: 26, power: 8},
-                            '4.6.2': {hours: 0, minutes: 29, power: 8},
-                            '2.6.2': {hours: 1, minutes: 58, power: 8},
-                            '1.6.3': {hours: 1, minutes: 29, power: 8},
-                            '3.6.3': {hours: 0, minutes: 26, power: 8},
-                            '4.6.3': {hours: 0, minutes: 29, power: 8},
-                            '2.6.3': {hours: 1, minutes: 58, power: 8},
-                            '1.6.4': {hours: 1, minutes: 29, power: 8},
-                            '3.6.4': {hours: 0, minutes: 26, power: 8},
-                            '4.6.4': {hours: 0, minutes: 29, power: 8},
-                            '2.6.4': {hours: 1, minutes: 58, power: 8}
+                            date: {
+                                year: 24,
+                                month: 1,
+                                date: 8
+                            },
+                            tariffs: [
+                                {
+                                    'A+': {hours: 1, minutes: 29, power: 8},
+                                    'A+R+': {hours: 0, minutes: 26, power: 8},
+                                    'A+R-': {hours: 0, minutes: 29, power: 8},
+                                    'A-': {hours: 1, minutes: 58, power: 8}
+                                },
+                                {
+                                    'A+': {hours: 1, minutes: 29, power: 8},
+                                    'A+R+': {hours: 0, minutes: 26, power: 8},
+                                    'A+R-': {hours: 0, minutes: 29, power: 8},
+                                    'A-': {hours: 1, minutes: 58, power: 8}
+                                },
+                                {
+                                    'A+': {hours: 1, minutes: 29, power: 8},
+                                    'A+R+': {hours: 0, minutes: 26, power: 8},
+                                    'A+R-': {hours: 0, minutes: 29, power: 8},
+                                    'A-': {hours: 1, minutes: 58, power: 8}
+                                },
+                                {
+                                    'A+': {hours: 1, minutes: 29, power: 8},
+                                    'A+R+': {hours: 0, minutes: 26, power: 8},
+                                    'A+R-': {hours: 0, minutes: 29, power: 8},
+                                    'A-': {hours: 1, minutes: 58, power: 8}
+                                }
+                            ]
                         }
                     }
                 ]
@@ -151,23 +159,26 @@ const segment3 = {
     }
 };
 
-const tests = [
-    {
-        name: 'segments: 1, 2, 3 (last)',
-        segments: [segment1, segment2, segment3]
-    },
-    {
-        name: 'segments: 2, 1, 3 (last)',
-        segments: [segment2, segment1, segment3]
-    }
-];
 
 const routes = [
     {url: `/v2/decoder/${MTX}`},
     {url: '/v2/decoder', requestExtension: {protocol: MTX}}
 ];
 
+const tests = [
+    {
+        name: 'segments: 1, 2, 3 (last)',
+        routes,
+        tests: [segment1, segment2, segment3]
+    },
+    {
+        name: 'segments: 2, 1, 3 (last)',
+        routes,
+        tests: [segment2, segment1, segment3]
+    }
+];
 
-describe('mtxLora decoder with dlms', () => {
-    tests.forEach(({name, segments}) => runTestsSequence(name, routes, segments));
+
+describe('mtxLora decoder', () => {
+    runTestsSuites(tests);
 });

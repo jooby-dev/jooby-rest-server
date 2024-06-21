@@ -3,7 +3,7 @@ import {READ_ONLY, UNENCRYPTED} from '@jooby-dev/jooby-codec/mtx/constants/acces
 import {HDLC} from '../src/constants/framingFormats.js';
 import {DOWNLINK} from '../src/constants/directions.js';
 import {MTX} from '../src/constants/protocols.js';
-import {runTestsSequence} from './utils/runTestsSequence.js';
+import {runTestsSuite} from './utils/runTestsSuite.js';
 
 
 const tests = [
@@ -318,4 +318,4 @@ const routes = [
 ];
 
 
-runTestsSequence('mtx encoder', routes, tests);
+runTestsSuite('mtx encoder', routes, tests);

@@ -1,6 +1,6 @@
 import {UPLINK} from '../src/constants/directions.js';
 import {MTX} from '../src/constants/protocols.js';
-import {runTestsSequence} from './utils/runTestsSequence.js';
+import {runTestsSuite} from './utils/runTestsSuite.js';
 
 
 const tests = [
@@ -74,4 +74,4 @@ const routes = [
 ];
 
 
-runTestsSequence('mtxLora encoder', routes, tests);
+runTestsSuite('mtxLora encoder', routes, tests);

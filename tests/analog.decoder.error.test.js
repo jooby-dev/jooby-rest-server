@@ -1,7 +1,7 @@
 import {DOWNLINK} from '../src/constants/directions.js';
 import {ANALOG} from '../src/constants/protocols.js';
 import {HDLC} from '../src/constants/framingFormats.js';
-import {runTestsSequence} from './utils/runTestsSequence.js';
+import {runTestsSuite} from './utils/runTestsSuite.js';
 
 
 const tests = [
@@ -63,4 +63,4 @@ const routes = [
 ];
 
 
-runTestsSequence('analog decoder', routes, tests);
+runTestsSuite('analog decoder', routes, tests);

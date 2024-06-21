@@ -1,7 +1,7 @@
 import {HEX, BASE64} from '@jooby-dev/jooby-codec/constants/bytesConversionFormats.js';
 import {DOWNLINK} from '../src/constants/directions.js';
 import {ANALOG} from '../src/constants/protocols.js';
-import {runTestsSequence} from './utils/runTestsSequence.js';
+import {runTestsSuite} from './utils/runTestsSuite.js';
 
 
 const tests = [
@@ -91,4 +91,4 @@ const routes = [
     {url: '/v2/decoder', requestExtension: {protocol: ANALOG}}
 ];
 
-runTestsSequence('analog segments decoder (simple)', routes, tests);
+runTestsSuite('analog segments decoder (simple)', routes, tests);
