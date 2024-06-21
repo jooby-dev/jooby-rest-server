@@ -2,7 +2,7 @@ import {BASE64} from '@jooby-dev/jooby-codec/constants/bytesConversionFormats.js
 import {DOWNLINK} from '../src/constants/directions.js';
 import {ANALOG} from '../src/constants/protocols.js';
 import {describe} from 'node:test';
-import {runTestsSequence} from './utils/runTestsSequence.js';
+import {runTestsSuite} from './utils/runTestsSuite.js';
 
 
 const segment1 = {
@@ -113,5 +113,5 @@ const routes = [
 
 
 describe('analog segments decoder', () => {
-    tests.forEach(({name, segments}) => runTestsSequence(name, routes, segments));
+    tests.forEach(({name, segments}) => runTestsSuite(name, routes, segments));
 });

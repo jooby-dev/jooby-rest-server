@@ -1,6 +1,6 @@
 import {OBIS_OBSERVER} from '../src/constants/protocols.js';
 import {HDLC} from '../src/constants/framingFormats.js';
-import {runTestsSequence} from './utils/runTestsSequence.js';
+import {runTestsSuite} from './utils/runTestsSuite.js';
 
 
 const tests = [
@@ -48,4 +48,4 @@ const routes = [
 ];
 
 
-runTestsSequence('obisObserver decoder', routes, tests);
+runTestsSuite('obisObserver decoder', routes, tests);

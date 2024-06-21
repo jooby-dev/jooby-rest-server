@@ -17,7 +17,8 @@ const runRouteTest = ( route, tests ) => (
     describe(route.url, async () => tests.forEach( test => runTest(route, test)))
 );
 
-export const runTestsSequence = ( name, routes, tests ) => {
+
+export const runTestsSuite = ( name, routes, tests ) => {
     before(async () => {
         await fastify.ready();
     });

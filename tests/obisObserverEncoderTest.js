@@ -1,7 +1,7 @@
 import * as constants from '@jooby-dev/jooby-codec/constants/index.js';
 import {HDLC} from '../src/constants/framingFormats.js';
 import {OBIS_OBSERVER} from '../src/constants/protocols.js';
-import {runTestsSequence} from './utils/runTestsSequence.js';
+import {runTestsSuite} from './utils/runTestsSuite.js';
 
 
 const {HEX, BASE64} = constants.bytesConversionFormats;
@@ -139,4 +139,4 @@ const routes = [
 ];
 
 
-runTestsSequence('obisObserver encoder', routes, tests);
+runTestsSuite('obisObserver encoder', routes, tests);
