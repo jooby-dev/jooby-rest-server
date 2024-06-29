@@ -42,6 +42,35 @@ paths:
                                     - oneOf:
                                           - $ref: "#/components/schemas/AnalogCommands"
                                           - $ref: "#/components/schemas/AnalogFrames"
+    /v2/encoder/analog:
+        post:
+            description: Encode the analog commands
+            requestBody:
+                description: Request to encode commands
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            allOf:
+                                - $ref: "#/components/schemas/AnalogOptions"
+                                - type: object
+                                  properties:
+                                        commands:
+                                              required: true,
+                                              $ref: "#/components/schemas/AnalogCommands"
+            responses:
+                200:
+                    description: Result of encoding
+                    content:
+                        application/json:
+                            schema:
+                                allOf:
+                                    - $ref: "#/components/schemas/AnalogOptions"
+                                    - type: object
+                                      properties:
+                                            data:
+                                                required: true,
+                                                $ref: "#/components/schemas/data"
     /v2/decoder/obisObserver:
         post:
             description: Decode the obis observer data
@@ -76,6 +105,35 @@ paths:
                                     - oneOf:
                                           - $ref: "#/components/schemas/ObisObserverCommands"
                                           - $ref: "#/components/schemas/ObisObserverFrames"
+    /v2/encoder/obisObserver:
+        post:
+            description: Encode the obisObserver commands
+            requestBody:
+                description: Request to encode commands
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            allOf:
+                                - $ref: "#/components/schemas/Options"
+                                - type: object
+                                  properties:
+                                        commands:
+                                              required: true,
+                                              $ref: "#/components/schemas/ObisObserverCommands"
+            responses:
+                200:
+                    description: Result of encoding
+                    content:
+                        application/json:
+                            schema:
+                                allOf:
+                                    - $ref: "#/components/schemas/Options"
+                                    - type: object
+                                      properties:
+                                            data:
+                                                required: true,
+                                                $ref: "#/components/schemas/data"
     /v2/decoder/mtx:
         post:
             description: Decode the mtx data
