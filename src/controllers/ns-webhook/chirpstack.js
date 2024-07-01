@@ -1,9 +1,7 @@
 import {analog, mtx, mtx3, obisObserver, utils} from '@jooby-dev/jooby-codec/index.js';
 import {DOWNLINK, UPLINK} from '../../constants/directions.js';
-import fetch from 'node-fetch';
 
 import * as protocols from '../../constants/protocols.js';
-import config from '../../configs/chirpstack.js';
 import errors from '../../errors.js';
 
 
@@ -18,37 +16,21 @@ const messageDecoders = {
             throw new Error('hardwareType tag must be set in device profile');
         }
 
-        return analog.message.fromBytes(bytes, {direction, hardwareType});
+        // convert to number from string
+        hardwareType = Number(hardwareType);
+
+        return analog.message[direction].fromBytes(bytes, {hardwareType});
     },
     [protocols.MTX]: ( {bytes, direction} ) => (
-        mtx.message.fromBytes(bytes, {direction})
+        mtx.message[direction].fromBytes(bytes)
     ),
     [protocols.MTX3]: ( {bytes, direction} ) => (
-        mtx3.message.fromBytes(bytes, {direction})
+        mtx3.message[direction].fromBytes(bytes)
     ),
     // in obis observer each command has unique id, no necessary to pass direction
-    [protocols.OBIS_OBSERVER]: ( {bytes} ) => (
-        obisObserver.message.fromBytes(bytes)
+    [protocols.OBIS_OBSERVER]: ( {direction, bytes} ) => (
+        obisObserver.message[direction].fromBytes(bytes)
     )
-};
-
-const chirpStackHeaders = {
-    Accept: 'application/json',
-    'Grpc-Metadata-Authorization': `Bearer ${config.apiKey}`
-};
-
-const getDownlinkData = async ( eui, queueItemId ) => {
-    const response = await fetch(
-        new URL(`api/devices/${eui}/queue`, config.apiUrl),
-        {
-            method: 'GET',
-            headers: chirpStackHeaders
-        }
-    );
-
-    const item = response.result.find(({id}) => id === queueItemId);
-
-    return item.data;
 };
 
 
@@ -57,15 +39,18 @@ const getDownlinkData = async ( eui, queueItemId ) => {
  */
 export default async function hook ( request, reply ) {
     const direction = eventMap[request.query.event];
+    const {body} = request;
+
+    this.log.trace('received from chirpstack: %s', JSON.stringify(body));
 
     if ( !direction ) {
         // unnecessary events
-        reply.sendError(errors.BAD_REQUEST, `unknown event type: '${request.query.event}'`);
+        this.log.warn('unknown event type');
+        reply.send('ok');
 
         return;
     }
 
-    const {body} = request;
     const {deviceInfo} = body;
 
     if ( !deviceInfo?.tags?.protocol ) {
@@ -87,23 +72,27 @@ export default async function hook ( request, reply ) {
 
     try {
         const {devEui} = deviceInfo;
-        let {data} = body;
+        const {data} = body;
 
-        if ( direction === DOWNLINK && !data ) {
-            data = await getDownlinkData(devEui, body.queueItemId);
+        if ( !data ) {
+            reply.send('ok');
+
+            return;
         }
 
         const bytes = utils.getBytesFromBase64(data);
-
-        // TODO: save/store/send parsed data to third-party service
         const result = messageDecoders[protocol]({bytes, direction, ...deviceInfo.tags});
 
         this.log.info('device: %s, decoded data: %j', devEui, result);
 
         // save for later push to integrations
-        reply.payload = JSON.stringify(result);
+        reply.payload = {
+            devEui,
+            deviceName: deviceInfo.deviceName,
+            data: JSON.stringify(result)
+        };
 
-        reply.status(200).send('ok');
+        reply.send('ok');
     } catch ( error ) {
         reply.sendError(errors.BAD_REQUEST, error);
     }

@@ -1,2 +1,2 @@
-export const DOWNLINK = 1;
-export const UPLINK = 2;
+export const DOWNLINK = 'downlink';
+export const UPLINK = 'uplink';
