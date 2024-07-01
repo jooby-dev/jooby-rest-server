@@ -50,16 +50,11 @@ export const getFastify = async () => {
         stopCollectorsCleaner();
     });
 
-    fastify.addHook('onSend', async ( request, reply, payload ) => {
-        // need to save it for later
-        reply.payload = reply.payload || payload;
-    });
-
     fastify.addHook('onResponse', async ( request, reply ) => {
         // find match
         integrations.forEach(integration => {
             if ( integration.type.toUpperCase() === 'HTTP' ) {
-                if ( request.url.includes(integration.route) ) {
+                if ( request.url.includes(integration.route) && reply.payload ) {
                     // post to the integration
                     axios.post(
                         integration.url,
@@ -69,7 +64,7 @@ export const getFastify = async () => {
                         .then(response => fastify.log.info(response))
                         .catch(error => fastify.log.warn(error));
 
-                    fastify.log.info('integration %s: sent to %s %j', integration.name, integration.url, reply.payload);
+                    fastify.log.info('integration %s: sent to %s %o', integration.name, integration.url, reply.payload);
                 }
             }
         });

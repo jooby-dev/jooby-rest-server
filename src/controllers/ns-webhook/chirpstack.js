@@ -89,7 +89,7 @@ export default async function hook ( request, reply ) {
         reply.payload = {
             devEui,
             deviceName: deviceInfo.deviceName,
-            data: JSON.stringify(result)
+            data: result
         };
 
         reply.send('ok');
