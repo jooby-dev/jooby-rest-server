@@ -46,36 +46,28 @@ export const getFastify = async () => {
             process.exit(1);
         });
 
-    fastify.addHook('onClose', (instance, done) => {
+    fastify.addHook('onClose', async () => {
         stopCollectorsCleaner();
-        done();
     });
 
-    fastify.addHook('onSend', (request, reply, payload, done) => {
-        // need to save it for later
-        reply.payload = reply.payload || payload;
-
-        done();
-    });
-
-    fastify.addHook('onResponse', (request, reply, done) => {
+    fastify.addHook('onResponse', async ( request, reply ) => {
         // find match
         integrations.forEach(integration => {
             if ( integration.type.toUpperCase() === 'HTTP' ) {
-                if ( request.url.includes(integration.route) ) {
+                if ( request.url.includes(integration.route) && reply.payload ) {
                     // post to the integration
                     axios.post(
                         integration.url,
                         reply.payload,
                         {headers: integration.headers || {}}
-                    );
+                    )
+                        .then(response => fastify.log.info(response))
+                        .catch(error => fastify.log.warn(error));
 
-                    fastify.log.info('integration %s: sent to %s %s', integration.name, integration.url, reply.payload);
+                    fastify.log.info('integration %s: sent to %s %o', integration.name, integration.url, reply.payload);
                 }
             }
         });
-
-        done();
     });
 
     return fastify;
