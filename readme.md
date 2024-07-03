@@ -285,13 +285,17 @@ curl -X POST -H "Content-Type: application/json" \
 
 ### Integrations
 
-Config file:
+Integration - enables the decoding of messages from one platform and transmitting the data to an integration for another platform. 
+To implement this, you need to configure the `integrations.json` file and set up the source platform.
+
+Example config file for Thingsboard integration:
 
 ```json
 [
     {
         "name": "chirp",
-        "type": "HTTP",
+        "type": "thingsboard",
+        "protocol": "HTTP",
         "url": "http://10.0.0.100:4000/v2/test",
         "headers": {
             "Content-Type": "application/json",
@@ -301,3 +305,10 @@ Config file:
     }
 ]
 ```
+
+#### Source platform - ChirpStack
+
+1. Setup `protocol` tag in device profile as one of `analog`, `mtx`, 'obisObserver`
+1. Setup HTTP integration to instance of `jooby-rest-server`, event endpoint url will be `%host%/v2/decoder`
+1. Setup HTTP header `ns-adapter` to `chirpstack`, to specify data adapter for requests
+1. Setup integration in `integrations.json` file

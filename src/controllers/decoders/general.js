@@ -16,5 +16,11 @@ const decoders = {
 export default function decode ( request, reply ) {
     const {body: {protocol}} = request;
 
-    decoders[protocol](request, reply);
+    if ( decoders[protocol] ) {
+        decoders[protocol](request, reply);
+    } else {
+        this.log.warn('unknown protocol %s', protocol);
+        // unknown protocol, all is ok, added for integrations
+        reply.send('ok');
+    }
 }
