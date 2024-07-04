@@ -19,13 +19,16 @@ export default ( {body, query}, log ) => {
     }
 
     const {deviceInfo} = body;
-    const protocol = deviceInfo?.tags?.protocol;
+    const {tags} = deviceInfo;
+    const protocol = tags?.protocol;
+    const hardwareType = tags?.hardwareType ? Number(tags.hardwareType) : undefined;
     const deviceEUI = deviceInfo.devEui;
 
     return {
         protocol,
         direction,
         deviceEUI,
+        hardwareType,
         data: body.data,
         bytesConversionFormat: BASE64
     };
