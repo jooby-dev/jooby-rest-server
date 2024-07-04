@@ -1,4 +1,4 @@
-import * as chirpstack from './chirpstack.js';
+import chirpstack from './chirpstack.js';
 import errors from '../errors.js';
 
 const adapters = {
@@ -9,10 +9,15 @@ const adapters = {
 const headerName = 'ns-adapter';
 
 
-export default function adaptData ( request, reply ) {
+export default async function adaptData ( request, reply ) {
     const adapterName = request.headers[headerName];
 
-    if ( !adapterName && adapters[adapterName] ) {
+    if ( !adapterName ) {
+        // skip requests without data adaptation
+        return true;
+    }
+
+    if ( !adapters[adapterName] ) {
         reply.sendError(errors.BAD_REQUEST, `Unsupported adapter "${adapterName}"`);
 
         return false;
@@ -21,9 +26,9 @@ export default function adaptData ( request, reply ) {
     const adapter = adapters[adapterName];
     const body = adapter(request, this.log);
 
-    if ( !body ) {
-        // ignore untransformed data
-        return true;
+    if ( body ) {
+        // override request body
+        request.body = body;
     }
 
     return true;
