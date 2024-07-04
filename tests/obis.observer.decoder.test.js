@@ -5,7 +5,6 @@ import {runTestsSuite} from './utils/runTestsSuite.js';
 
 
 const tests = [
-
     {
         name: 'hex bytes format',
         request: {
