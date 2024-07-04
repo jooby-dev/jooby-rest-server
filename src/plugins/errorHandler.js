@@ -10,7 +10,7 @@ export default fastifyPlugin((fastify, options, done) => {
     fastify.setErrorHandler(async ( exception, request, reply ) => {
         const isKnownError = errorKeys.has(exception?.body?.code);
 
-        reply.sendError(isKnownError ? exception : errors.INTERNAL_SERVER_ERROR);
+        reply.sendError(isKnownError ? exception : errors.INTERNAL_SERVER_ERROR, exception);
     });
 
     done();

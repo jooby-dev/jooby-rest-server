@@ -27,7 +27,10 @@ export const getFastify = async () => {
         genReqId: () => requestIndex++
     });
 
-    fastify.register(fastifyPrintRoutes, {useColors: configPino.transport.options.colorize});
+    if ( !process.env.NODE_TEST_CONTEXT ) {
+        // skip printing routes in test runner
+        fastify.register(fastifyPrintRoutes, {useColors: configPino.transport.options.colorize});
+    }
 
     // custom plugins
     fastify.register(errorHandler);

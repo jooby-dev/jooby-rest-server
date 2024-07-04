@@ -4,9 +4,9 @@ import {describe, it, before, after} from 'node:test';
 import assert from 'node:assert';
 
 
-const runTest = async ( {url, requestExtension}, {name, request, response} ) => {
+const runTest = async ( {url, requestExtension, headers}, {name, request, response} ) => {
     it(name, async () => {
-        const {status, data} = await postRequest(url, {...request, ...requestExtension});
+        const {status, data} = await postRequest(url, {...request, ...requestExtension}, {headers});
 
         assert.equal(status, 200);
         assert.deepStrictEqual(data, response);

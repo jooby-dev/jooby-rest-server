@@ -48,7 +48,7 @@ const validateRequest = ( {body}, reply ) => {
 export const validateDecoder = ( request, reply ) => {
     const {body: {data}} = request;
 
-    if ( !validateRequest(request) ) {
+    if ( !validateRequest(request, reply) ) {
         return false;
     }
 
