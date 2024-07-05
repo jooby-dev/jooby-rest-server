@@ -109,7 +109,14 @@ const tests = [
 
 const routes = [
     {url: `/v2/decoder/${MTX}`},
-    {url: '/v2/decoder', requestExtension: {protocol: MTX}}
+    {
+        url: '/v2/decoder',
+        extendRequest: request => {
+            request.protocol = MTX;
+
+            return request;
+        }
+    }
 ];
 
 runTestsSuite('mtx decoder', routes, tests);
