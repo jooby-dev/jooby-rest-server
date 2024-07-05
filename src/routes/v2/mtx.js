@@ -2,7 +2,7 @@ import {validateDecoder, validateEncoder} from './validators/mtx.js';
 import {modifyDecoderRequest, modifyEncoderRequest} from './utils/modifyRequest.js';
 import decode from '../../controllers/decoders/mtx.js';
 import encode from '../../controllers/encoders/mtx.js';
-import adaptData from '../../adapters/index.js';
+import adaptData from '../../adapters/ns/index.js';
 import {MTX, MTX3} from '../../constants/protocols.js';
 
 
