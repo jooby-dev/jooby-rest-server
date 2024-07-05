@@ -1,5 +1,5 @@
 import chirpstack from './chirpstack.js';
-import errors from '../errors.js';
+import errors from '../../errors.js';
 
 const adapters = {
     chirpstack

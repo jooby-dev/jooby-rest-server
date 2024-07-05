@@ -8,6 +8,7 @@
         "jooby",
         "openapi",
         "pino",
-        "redocly"
+        "redocly",
+        "Thingsboard"
     ]
 }
