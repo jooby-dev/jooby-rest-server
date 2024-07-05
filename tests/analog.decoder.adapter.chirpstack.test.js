@@ -1,5 +1,6 @@
 import {BASE64} from '@jooby-dev/jooby-codec/constants/bytesConversionFormats.js';
 import {UPLINK} from '../src/constants/directions.js';
+import {ANALOG} from '../src/constants/protocols.js';
 import {runTestsSuite} from './utils/runTestsSuite.js';
 
 
@@ -20,7 +21,6 @@ const tests = [
                 devEui: '001a79881701e779',
                 deviceClassEnabled: 'CLASS_A',
                 tags: {
-                    protocol: 'analog',
                     hardwareType: '3'
                 }
             },
@@ -108,7 +108,6 @@ const tests = [
                 devEui: '001a79881701e779',
                 deviceClassEnabled: 'CLASS_A',
                 tags: {
-                    protocol: 'analog',
                     hardwareType: '3'
                 }
             },
@@ -172,9 +171,20 @@ const tests = [
 
 const routes = [
     {
+        url: `/v2/decoder/${ANALOG}?event=up`,
+        headers: {
+            'ns-adapter': 'chirpstack'
+        }
+    },
+    {
         url: '/v2/decoder?event=up',
         headers: {
             'ns-adapter': 'chirpstack'
+        },
+        extendRequest: request => {
+            request.deviceInfo.tags.protocol = ANALOG;
+
+            return request;
         }
     }
 ];

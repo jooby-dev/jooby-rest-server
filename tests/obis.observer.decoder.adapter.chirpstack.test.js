@@ -1,5 +1,6 @@
 import {BASE64} from '@jooby-dev/jooby-codec/constants/bytesConversionFormats.js';
 import {UPLINK} from '../src/constants/directions.js';
+import {OBIS_OBSERVER} from '../src/constants/protocols.js';
 import {runTestsSuite} from './utils/runTestsSuite.js';
 
 
@@ -18,10 +19,7 @@ const tests = [
                 deviceProfileName: 'jooby-class-c',
                 deviceName: '001a798814005801',
                 devEui: '001a798814005801',
-                deviceClassEnabled: 'CLASS_C',
-                tags: {
-                    protocol: 'obisObserver'
-                }
+                deviceClassEnabled: 'CLASS_C'
             },
             devAddr: '00005801',
             adr: true,
@@ -80,9 +78,20 @@ const tests = [
 
 const routes = [
     {
+        url: `/v2/decoder/${OBIS_OBSERVER}?event=up`,
+        headers: {
+            'ns-adapter': 'chirpstack'
+        }
+    },
+    {
         url: '/v2/decoder?event=up',
         headers: {
             'ns-adapter': 'chirpstack'
+        },
+        extendRequest: request => {
+            request.deviceInfo.tags = {protocol: OBIS_OBSERVER};
+
+            return request;
         }
     }
 ];

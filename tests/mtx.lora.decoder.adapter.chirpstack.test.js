@@ -1,6 +1,7 @@
 import {UNENCRYPTED} from '@jooby-dev/jooby-codec/mtx/constants/accessLevels.js';
 import {BASE64} from '@jooby-dev/jooby-codec/constants/bytesConversionFormats.js';
 import {UPLINK} from '../src/constants/directions.js';
+import {MTX} from '../src/constants/protocols.js';
 import {describe} from 'node:test';
 import {runTestsSuites} from './utils/runTestsSuite.js';
 
@@ -19,10 +20,7 @@ const segment1 = {
             deviceProfileName: 'jooby-class-c',
             deviceName: 'MTX_001a798814005801',
             devEui: '001a798814005801',
-            deviceClassEnabled: 'CLASS_C',
-            tags: {
-                protocol: 'mtx'
-            }
+            deviceClassEnabled: 'CLASS_C'
         },
         devAddr: '00005801',
         adr: true,
@@ -92,10 +90,7 @@ const segment2 = {
             deviceProfileName: 'jooby-class-c',
             deviceName: 'MTX_001a798814005801',
             devEui: '001a798814005801',
-            deviceClassEnabled: 'CLASS_C',
-            tags: {
-                protocol: 'mtx'
-            }
+            deviceClassEnabled: 'CLASS_C'
         },
         devAddr: '00005801',
         adr: true,
@@ -165,10 +160,7 @@ const segment3 = {
             deviceProfileName: 'jooby-class-c',
             deviceName: 'MTX_001a798814005801',
             devEui: '001a798814005801',
-            deviceClassEnabled: 'CLASS_C',
-            tags: {
-                protocol: 'mtx'
-            }
+            deviceClassEnabled: 'CLASS_C'
         },
         devAddr: '00005801',
         adr: true,
@@ -304,9 +296,20 @@ const segment3 = {
 
 const routes = [
     {
+        url: `/v2/decoder/${MTX}?event=up`,
+        headers: {
+            'ns-adapter': 'chirpstack'
+        }
+    },
+    {
         url: '/v2/decoder?event=up',
         headers: {
             'ns-adapter': 'chirpstack'
+        },
+        extendRequest: request => {
+            request.deviceInfo.tags = {protocol: MTX};
+
+            return request;
         }
     }
 ];
