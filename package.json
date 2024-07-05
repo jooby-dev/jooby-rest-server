@@ -22,7 +22,7 @@
         "eslint-plugin-import": "^2.28.1"
     },
     "dependencies": {
-        "@jooby-dev/jooby-codec": "2024.705.1339",
+        "@jooby-dev/jooby-codec": "2024.705.1349",
         "axios": "^1.6.7",
         "dotenv": "^16.0.0",
         "fastify": "^4.13.0",
