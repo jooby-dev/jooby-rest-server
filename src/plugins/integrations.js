@@ -4,12 +4,7 @@ import axios from 'axios';
 import fastifyPlugin from 'fastify-plugin';
 
 import {integrations as config} from '../configs/main.js';
-import thingsboard from '../adapters/integrations/thingsboard.js';
-
-
-const adapters = {
-    thingsboard
-};
+import adapters from '../adapters/integrations/index.js';
 
 
 export default fastifyPlugin(async fastify => {
