@@ -291,7 +291,7 @@ Available adapters: ChirpStack.
 
 #### ChirpStack
 
-1. Setup `protocol` tag in device profile as one of `analog`, `mtx`, 'obisObserver`
+1. Setup `protocol` tag in device profile as one of `analog`, `mtx`, `obisObserver`
 1. Setup HTTP integration to instance of `jooby-rest-server`, event endpoint url will be `%host%/v2/decoder`
 1. Setup HTTP header `ns-adapter` to `chirpstack`, to specify data adapter for requests
 1. Setup integration in `integrations.json` file
