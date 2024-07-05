@@ -167,7 +167,14 @@ const tests = [
 
 const routes = [
     {url: `/v2/decoder/${OBIS_OBSERVER}`},
-    {url: '/v2/decoder', requestExtension: {protocol: OBIS_OBSERVER}}
+    {
+        url: '/v2/decoder',
+        extendRequest: request => {
+            request.protocol = OBIS_OBSERVER;
+
+            return request;
+        }
+    }
 ];
 
 

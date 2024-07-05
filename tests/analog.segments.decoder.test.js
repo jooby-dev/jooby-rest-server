@@ -97,7 +97,14 @@ const segment3 = {
 
 const routes = [
     {url: `/v2/decoder/${ANALOG}`},
-    {url: '/v2/decoder', requestExtension: {protocol: ANALOG}}
+    {
+        url: '/v2/decoder',
+        extendRequest: request => {
+            request.protocol = ANALOG;
+
+            return request;
+        }
+    }
 ];
 
 const tests = [

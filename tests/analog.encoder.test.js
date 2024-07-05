@@ -132,7 +132,14 @@ const tests = [
 
 const routes = [
     {url: `/v2/encoder/${ANALOG}`},
-    {url: '/v2/encoder', requestExtension: {protocol: ANALOG}}
+    {
+        url: '/v2/encoder',
+        extendRequest: request => {
+            request.protocol = ANALOG;
+
+            return request;
+        }
+    }
 ];
 
 

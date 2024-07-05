@@ -314,7 +314,14 @@ const tests = [
 
 const routes = [
     {url: `/v2/encoder/${MTX}`},
-    {url: '/v2/encoder', requestExtension: {protocol: MTX}}
+    {
+        url: '/v2/encoder',
+        extendRequest: request => {
+            request.protocol = MTX;
+
+            return request;
+        }
+    }
 ];
 
 
