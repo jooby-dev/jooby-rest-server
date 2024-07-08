@@ -35,7 +35,7 @@ export default fastifyPlugin(async fastify => {
                     )
                         .catch(error => fastify.log.warn(error));
 
-                    fastify.log.info('integration %s: sent to %s %o', integration.name, integration.url, reply.payload);
+                    fastify.log.info('integration %s: sent to %s %s', integration.name, integration.url, reply.payload);
                 }
             }
         });
