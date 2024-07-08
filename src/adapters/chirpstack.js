@@ -1,5 +1,5 @@
 import {BASE64} from '@jooby-dev/jooby-codec/constants/bytesConversionFormats.js';
-import {UPLINK} from '../../constants/directions.js';
+import {UPLINK} from '../constants/directions.js';
 
 const eventMap = {
     up: UPLINK
