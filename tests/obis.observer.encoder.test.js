@@ -20,7 +20,6 @@ const tests = [
                         requestId: 2
                     }
                 }
-
             ]
         },
         response: {
