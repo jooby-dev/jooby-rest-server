@@ -4,7 +4,11 @@ import axios from 'axios';
 const downlinkCounters = new Map();
 
 const sendMessage = async ( integration, eui, data ) => {
-    let downlinkCounter = downlinkCounters.get(eui) || 3;
+    let downlinkCounter = downlinkCounters.get(eui) || 0;
+
+    ++downlinkCounter;
+
+    downlinkCounters.set(eui, downlinkCounter);
 
     return axios.post(
         new URL(`api/devices/${eui}/queue`, integration.url),
@@ -12,7 +16,7 @@ const sendMessage = async ( integration, eui, data ) => {
             queueItem: {
                 data,
                 fPort: 1,
-                fCntDown: downlinkCounter++
+                fCntDown: downlinkCounter
             }
         },
         {headers: integration.headers}
