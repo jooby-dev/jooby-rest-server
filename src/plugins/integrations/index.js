@@ -3,7 +3,25 @@ import {readFile} from 'node:fs/promises';
 import axios from 'axios';
 import fastifyPlugin from 'fastify-plugin';
 
-import {integrations as config} from '../configs/main.js';
+import {integrations as config} from '../../configs/main.js';
+import * as chirpstack from './chirpstack.js';
+
+
+const specialSenders = {
+    chirpstack
+};
+
+const sendData = async ( integration, payload ) => {
+    if ( specialSenders[integration.type] ) {
+        return specialSenders[integration.type].sendData(integration, payload);
+    }
+
+    return axios.post(
+        integration.url,
+        payload,
+        {headers: integration.headers || {}}
+    );
+};
 
 
 export default fastifyPlugin(async fastify => {
@@ -24,18 +42,16 @@ export default fastifyPlugin(async fastify => {
 
     fastify.addHook('onResponse', async ( request, reply ) => {
         // find match
-        integrations.forEach(integration => {
+        integrations.forEach(async integration => {
             if ( integration.protocol.toUpperCase() === 'HTTP' ) {
                 if ( request.url.includes(integration.route) ) {
                     // post to the integration
-                    axios.post(
-                        integration.url,
-                        reply.payload,
-                        {headers: integration.headers || {}}
-                    )
-                        .catch(error => fastify.log.warn(error));
-
-                    fastify.log.info('integration %s: sent to %s %s', integration.name, integration.url, reply.payload);
+                    try {
+                        await sendData(integration, reply.payload);
+                        fastify.log.info('integration %s: sent to %s %s', integration.name, integration.url, reply.payload);
+                    } catch ( error ) {
+                        fastify.log.warn(error);
+                    }
                 }
             }
         });
