@@ -299,7 +299,7 @@ Available adapters: ChirpStack.
 
 ### Integrations
 
-Integration - enables the decoding of messages from one platform and transmitting the data to an integration for another platform. 
+Integration - enables the decoding of messages from one platform and transmitting the data to an integration for another platform.
 To implement this, you need to configure the `integrations.json` file and set up the source platform.
 
 Example config file for Thingsboard integration:
