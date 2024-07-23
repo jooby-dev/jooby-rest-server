@@ -1,6 +1,6 @@
 services:
     server:
-        image: "joobydev/jooby-rest-server:v4"
+        image: "joobydev/jooby-rest-server:latest"
         restart: unless-stopped
 
         init: true
