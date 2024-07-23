@@ -1,0 +1,18 @@
+services:
+    server:
+        image: "joobydev/jooby-rest-server:v4"
+        restart: unless-stopped
+
+        init: true
+
+        ports:
+            - 80:3000
+
+        environment:
+            - TZ=UTC
+            - LOG_LEVEL=trace
+
+        volumes:
+            - type: bind
+              source: ../integrations.json
+              target: /app/integrations.json

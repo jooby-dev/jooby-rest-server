@@ -43,6 +43,7 @@ module.exports = {
         'import/no-unresolved': 'off',
         'no-restricted-exports': 'off',
         'no-unused-vars': 'error',
+        'no-restricted-syntax': 'off',
         'padding-line-between-statements': [
             'error',
             {blankLine: 'always', prev: '*', next: ['directive', 'return', 'export', 'cjs-export', 'try', 'function']},
