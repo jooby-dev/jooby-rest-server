@@ -29,6 +29,11 @@ export default async function adaptData ( request, reply ) {
     if ( body ) {
         // override request body
         request.body = body;
+    } else {
+        // nothing to response, all is ok, unsupported or bad request
+        reply.send('ok');
+
+        return false;
     }
 
     return true;
