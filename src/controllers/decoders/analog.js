@@ -1,5 +1,5 @@
 import {decodeAnalogMessage} from './utils/decodeAnalogMessage.js';
-import {fromBytes as frameFromBytes} from '@jooby-dev/jooby-codec/utils/frame.js';
+import {fromBytes as frameFromBytes} from 'jooby-codec/utils/frame.js';
 import decodeFrames from './utils/decodeFrames.js';
 import {HDLC} from '../../constants/framingFormats.js';
 import getStringFromBytes from '../../utils/getStringFromBytes.js';

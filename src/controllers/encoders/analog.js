@@ -1,6 +1,6 @@
 import errors from '../../errors.js';
-import * as frame from '@jooby-dev/jooby-codec/utils/frame.js';
-import {downlink, uplink} from '@jooby-dev/jooby-codec/analog/message/index.js';
+import * as frame from 'jooby-codec/utils/frame.js';
+import {downlink, uplink} from 'jooby-codec/analog/message/index.js';
 import {HDLC} from '../../constants/framingFormats.js';
 import getStringFromBytes from '../../utils/getStringFromBytes.js';
 import * as directions from '../../constants/directions.js';

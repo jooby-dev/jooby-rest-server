@@ -1,6 +1,6 @@
-import * as messages from '@jooby-dev/jooby-codec/analog/message/index.js';
-import {downlinkById, uplinkById} from '@jooby-dev/jooby-codec/analog/commands/index.js';
-import * as dataSegment from '@jooby-dev/jooby-codec/analog/commands/downlink/dataSegment.js';
+import * as messages from 'jooby-codec/analog/message/index.js';
+import {downlinkById, uplinkById} from 'jooby-codec/analog/commands/index.js';
+import * as dataSegment from 'jooby-codec/analog/commands/downlink/dataSegment.js';
 import {getSegmentCollector, removeSegmentCollector} from '../../utils/segmentCollectors.js';
 import * as directions from '../../../constants/directions.js';
 import {prepareCommands} from '../../utils/preparations.js';

@@ -1,4 +1,4 @@
-import {HEX, BASE64} from '@jooby-dev/jooby-codec/constants/bytesConversionFormats.js';
+import {HEX, BASE64} from 'jooby-codec/constants/bytesConversionFormats.js';
 import {HDLC} from '../src/constants/framingFormats.js';
 import {DOWNLINK} from '../src/constants/directions.js';
 import {ANALOG} from '../src/constants/protocols.js';

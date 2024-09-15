@@ -1,4 +1,4 @@
-import {BASE64} from '@jooby-dev/jooby-codec/constants/bytesConversionFormats.js';
+import {BASE64} from 'jooby-codec/constants/bytesConversionFormats.js';
 import {UPLINK} from '../src/constants/directions.js';
 import {describe} from 'node:test';
 import {ANALOG} from '../src/constants/protocols.js';

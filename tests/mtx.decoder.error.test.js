@@ -1,7 +1,7 @@
-import {HEX} from '@jooby-dev/jooby-codec/constants/bytesConversionFormats.js';
+import {HEX} from 'jooby-codec/constants/bytesConversionFormats.js';
 import {HDLC} from '../src/constants/framingFormats.js';
 import {DOWNLINK} from '../src/constants/directions.js';
-import {MTX} from '../src/constants/protocols.js';
+import {MTX1} from '../src/constants/protocols.js';
 import {runTestsSuite} from './utils/runTestsSuite.js';
 
 
@@ -108,11 +108,11 @@ const tests = [
 ];
 
 const routes = [
-    {url: `/v2/decoder/${MTX}`},
+    {url: `/v2/decoder/${MTX1}`},
     {
         url: '/v2/decoder',
         extendRequest: request => {
-            request.protocol = MTX;
+            request.protocol = MTX1;
 
             return request;
         }

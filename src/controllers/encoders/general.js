@@ -1,3 +1,5 @@
+import * as protocols from '../../constants/protocols.js';
+
 import analog from './analog.js';
 import mtx from './mtx.js';
 import obisObserver from './obisObserver.js';
@@ -16,5 +18,5 @@ const encoders = {
 export default function encode ( request, reply ) {
     const {body: {protocol}} = request;
 
-    encoders[protocol](request, reply);
+    encoders[protocol === protocols.MTX1 || protocol === protocols.MTX3 ? 'mtx' : protocol](request, reply);
 }

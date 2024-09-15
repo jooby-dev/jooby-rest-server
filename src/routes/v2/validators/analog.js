@@ -1,4 +1,4 @@
-import {analog} from '@jooby-dev/jooby-codec/index.js';
+import {analog} from 'jooby-codec/index.js';
 import * as baseRequest from './common.js';
 import errors from '../../../errors.js';
 import * as directions from '../../../constants/directions.js';

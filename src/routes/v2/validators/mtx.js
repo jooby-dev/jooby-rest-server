@@ -1,11 +1,11 @@
 import * as common from './common.js';
-import {mtx} from '@jooby-dev/jooby-codec/index.js';
+import {mtx1} from 'jooby-codec/index.js';
 import errors from '../../../errors.js';
 import {HDLC} from '../../../constants/framingFormats.js';
 import * as directions from '../../../constants/directions.js';
 import getBytesFromString from '../../../utils/getBytesFromString.js';
 
-const {accessLevels, frameTypes} = mtx.constants;
+const {accessLevels, frameTypes} = mtx1.constants;
 const accessLevelsSet = new Set(Object.values(accessLevels));
 const mtxFrameTypesSet = new Set(Object.values(frameTypes));
 
@@ -87,7 +87,7 @@ const checkEncoder = ( request, reply ) => {
             return;
         }
 
-        if ( accessLevel !== mtx.constants.accessLevels.UNENCRYPTED && !aesKey ) {
+        if ( accessLevel !== mtx1.constants.accessLevels.UNENCRYPTED && !aesKey ) {
             reply.sendError(errors.BAD_REQUEST, `AES key not found`);
 
             return;

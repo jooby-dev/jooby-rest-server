@@ -1,7 +1,7 @@
-import {downlink, uplink} from '@jooby-dev/jooby-codec/analog/message/index.js';
-import {dataSegment as downlinkDataSegment} from '@jooby-dev/jooby-codec/analog/commands/downlink/index.js';
-import {dataSegment as uplinkDataSegment} from '@jooby-dev/jooby-codec/analog/commands/uplink/index.js';
-import {splitBytesToDataSegments} from '@jooby-dev/jooby-codec/analog/utils/splitBytesToDataSegments.js';
+import {downlink, uplink} from 'jooby-codec/analog/message/index.js';
+import {dataSegment as downlinkDataSegment} from 'jooby-codec/analog/commands/downlink/index.js';
+import {dataSegment as uplinkDataSegment} from 'jooby-codec/analog/commands/uplink/index.js';
+import {splitBytesToDataSegments} from 'jooby-codec/analog/utils/splitBytesToDataSegments.js';
 import * as directions from '../../../constants/directions.js';
 import getStringFromBytes from '../../../utils/getStringFromBytes.js';
 

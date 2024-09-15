@@ -1,6 +1,6 @@
-import {downlink, uplink} from '@jooby-dev/jooby-codec/obis-observer/message/index.js';
-import * as wrappers from '@jooby-dev/jooby-codec/obis-observer/message/wrappers.js';
-import * as frame from '@jooby-dev/jooby-codec/utils/frame.js';
+import {downlink, uplink} from 'jooby-codec/obis-observer/message/index.js';
+import * as wrappers from 'jooby-codec/obis-observer/message/wrappers.js';
+import * as frame from 'jooby-codec/utils/frame.js';
 import {HDLC} from '../../constants/framingFormats.js';
 import getStringFromBytes from '../../utils/getStringFromBytes.js';
 import errors from '../../errors.js';

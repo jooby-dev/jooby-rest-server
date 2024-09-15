@@ -1,4 +1,4 @@
-import * as constants from '@jooby-dev/jooby-codec/constants/index.js';
+import * as constants from 'jooby-codec/constants/index.js';
 import * as framingFormats from '../../../constants/framingFormats.js';
 import * as directions from '../../../constants/directions.js';
 import errors from '../../../errors.js';

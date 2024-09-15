@@ -1,6 +1,6 @@
-import {downlink, uplink} from '@jooby-dev/jooby-codec/mtx/message/index.js';
-import * as frame from '@jooby-dev/jooby-codec/mtx/utils/frame.js';
-import {accessLevels} from '@jooby-dev/jooby-codec/mtx/constants/index.js';
+import {downlink, uplink} from 'jooby-codec/mtx1/message/index.js';
+import * as frame from 'jooby-codec/mtx1/utils/frame.js';
+import {accessLevels} from 'jooby-codec/mtx1/constants/index.js';
 import {HDLC} from '../../constants/framingFormats.js';
 import * as directions from '../../constants/directions.js';
 import encodeAnalogDataSegments from './utils/encodeAnalogDataSegments.js';

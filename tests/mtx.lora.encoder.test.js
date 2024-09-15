@@ -1,5 +1,5 @@
 import {UPLINK} from '../src/constants/directions.js';
-import {MTX} from '../src/constants/protocols.js';
+import {MTX1} from '../src/constants/protocols.js';
 import {runTestsSuite} from './utils/runTestsSuite.js';
 
 
@@ -69,11 +69,11 @@ const tests = [
 ];
 
 const routes = [
-    {url: `/v2/encoder/${MTX}`},
+    {url: `/v2/encoder/${MTX1}`},
     {
         url: '/v2/encoder',
         extendRequest: request => {
-            request.protocol = MTX;
+            request.protocol = MTX1;
 
             return request;
         }
