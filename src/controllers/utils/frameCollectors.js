@@ -1,4 +1,4 @@
-import FrameCollector from '@jooby-dev/jooby-codec/utils/frameCollector.js';
+import FrameCollector from 'jooby-codec/utils/frameCollector.js';
 import getEpochSeconds from '../../utils/getEpochSeconds.js';
 import {startCollectorsCleaner} from './collectorsCleaner.js';
 

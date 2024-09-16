@@ -1,8 +1,8 @@
-import * as mtx from '@jooby-dev/jooby-codec/mtx/message/index.js';
-import * as mtx3 from '@jooby-dev/jooby-codec/mtx3/message/index.js';
-import {downlinkById, uplinkById} from '@jooby-dev/jooby-codec/mtx/commands/index.js';
-import {fromBytes as frameFromBytes} from '@jooby-dev/jooby-codec/mtx/utils/frame.js';
-import {MTXLORA} from '@jooby-dev/jooby-codec/analog/constants/hardwareTypes.js';
+import * as mtx1 from 'jooby-codec/mtx1/message/index.js';
+import * as mtx3 from 'jooby-codec/mtx3/message/index.js';
+import {downlinkById, uplinkById} from 'jooby-codec/mtx1/commands/index.js';
+import {fromBytes as frameFromBytes} from 'jooby-codec/mtx1/utils/frame.js';
+import {MTXLORA} from 'jooby-codec/analog/constants/hardwareTypes.js';
 import {decodeAnalogMessage} from './utils/decodeAnalogMessage.js';
 import decodeFrames from './utils/decodeFrames.js';
 import {HDLC} from '../../constants/framingFormats.js';
@@ -14,7 +14,7 @@ import * as directions from '../../constants/directions.js';
 
 
 const fromBytes = ( bytes, options ) => {
-    const message = options.protocol === protocols.MTX ? mtx : mtx3;
+    const message = options.protocol === protocols.MTX1 ? mtx1 : mtx3;
 
     return options.direction === directions.DOWNLINK ? message.downlink.fromBytes(bytes, options) : message.uplink.fromBytes(bytes, options);
 };

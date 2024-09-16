@@ -1,6 +1,6 @@
-import {UNENCRYPTED} from '@jooby-dev/jooby-codec/mtx/constants/accessLevels.js';
+import {UNENCRYPTED} from 'jooby-codec/mtx1/constants/accessLevels.js';
 import {UPLINK} from '../src/constants/directions.js';
-import {MTX} from '../src/constants/protocols.js';
+import {MTX1} from '../src/constants/protocols.js';
 import {describe} from 'node:test';
 import {runTestsSuites} from './utils/runTestsSuite.js';
 
@@ -161,11 +161,11 @@ const segment3 = {
 
 
 const routes = [
-    {url: `/v2/decoder/${MTX}`},
+    {url: `/v2/decoder/${MTX1}`},
     {
         url: '/v2/decoder',
         extendRequest: request => {
-            request.protocol = MTX;
+            request.protocol = MTX1;
 
             return request;
         }

@@ -1,6 +1,6 @@
-import {BASE64} from '@jooby-dev/jooby-codec/constants/bytesConversionFormats.js';
+import {BASE64} from 'jooby-codec/constants/bytesConversionFormats.js';
 import {UPLINK} from '../src/constants/directions.js';
-import {MTX} from '../src/constants/protocols.js';
+import {MTX1} from '../src/constants/protocols.js';
 import {runTestsSuite} from './utils/runTestsSuite.js';
 
 
@@ -107,7 +107,7 @@ const tests = [
 
 const routes = [
     {
-        url: `/v2/decoder/${MTX}?event=up`,
+        url: `/v2/decoder/${MTX1}?event=up`,
         headers: {
             'ns-adapter': 'chirpstack'
         }
@@ -118,7 +118,7 @@ const routes = [
             'ns-adapter': 'chirpstack'
         },
         extendRequest: request => {
-            request.deviceInfo.tags = {protocol: MTX};
+            request.deviceInfo.tags = {protocol: MTX1};
 
             return request;
         }

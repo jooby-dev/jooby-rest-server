@@ -6,9 +6,9 @@
     "author": "",
     "scripts": {
         "lint": "eslint .",
-        "api:serve": "redocly serve --watch ./api/openapi.yaml -p 3030 --ssr",
-        "api:bundle": "redocly bundle ./api/openapi.yaml",
-        "api:build-docs": "redocly build-docs ./api/openapi.yaml -o ./api/index.html",
+        "api:serve": "echo 'Not implemented yet'",
+        "api:bundle": "echo 'Not implemented yet'",
+        "api:build-docs": "echo 'Not implemented yet'",
         "develop": "NODE_ENV=develop LOG_LEVEL=trace node --watch ./src/index.js",
         "develop:inspect": "NODE_ENV=develop node --inspect ./src/index.js",
         "start": "node ./src/index.js",
@@ -21,12 +21,12 @@
         "eslint-plugin-import": "^2.28.1"
     },
     "dependencies": {
-        "@jooby-dev/jooby-codec": "^2024.722.825",
         "axios": "^1.6.7",
         "dotenv": "^16.0.0",
         "fastify": "^4.13.0",
         "fastify-plugin": "^4.5.0",
         "fastify-print-routes": "^3.1.1",
+        "jooby-codec": "^5.0.0",
         "node-fetch": "^3.3.2",
         "pino-pretty": "^11.2.1"
     },

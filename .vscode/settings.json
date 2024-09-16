@@ -6,9 +6,11 @@
         "hdlc",
         "Infomir",
         "jooby",
+        "MTXLORA",
         "openapi",
         "pino",
         "redocly",
+        "rssi",
         "Thingsboard"
     ]
 }

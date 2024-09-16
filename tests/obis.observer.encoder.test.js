@@ -1,4 +1,4 @@
-import * as constants from '@jooby-dev/jooby-codec/constants/index.js';
+import * as constants from 'jooby-codec/constants/index.js';
 import {HDLC} from '../src/constants/framingFormats.js';
 import {OBIS_OBSERVER} from '../src/constants/protocols.js';
 import {runTestsSuite} from './utils/runTestsSuite.js';

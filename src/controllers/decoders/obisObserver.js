@@ -1,7 +1,7 @@
-import * as messages from '@jooby-dev/jooby-codec/obis-observer/message/index.js';
-import {downlinkById, uplinkById} from '@jooby-dev/jooby-codec/obis-observer/commands/index.js';
-import * as wrappers from '@jooby-dev/jooby-codec/obis-observer/message/wrappers.js';
-import {fromBytes as frameFromBytes} from '@jooby-dev/jooby-codec/utils/frame.js';
+import * as messages from 'jooby-codec/obis-observer/message/index.js';
+import {downlinkById, uplinkById} from 'jooby-codec/obis-observer/commands/index.js';
+import * as wrappers from 'jooby-codec/obis-observer/message/wrappers.js';
+import {fromBytes as frameFromBytes} from 'jooby-codec/utils/frame.js';
 import decodeFrames from './utils/decodeFrames.js';
 import {HDLC} from '../../constants/framingFormats.js';
 import {prepareCommands} from '../utils/preparations.js';
