@@ -6,9 +6,9 @@
     "author": "",
     "scripts": {
         "lint": "eslint .",
-        "api:serve": "redocly serve --watch ./api/openapi.yaml -p 3030 --ssr",
-        "api:bundle": "redocly bundle ./api/openapi.yaml",
-        "api:build-docs": "redocly build-docs ./api/openapi.yaml -o ./api/index.html",
+        "api:serve": "echo 'Not implemented yet'",
+        "api:bundle": "echo 'Not implemented yet'",
+        "api:build-docs": "echo 'Not implemented yet'",
         "develop": "NODE_ENV=develop LOG_LEVEL=trace node --watch ./src/index.js",
         "develop:inspect": "NODE_ENV=develop node --inspect ./src/index.js",
         "start": "node ./src/index.js",
