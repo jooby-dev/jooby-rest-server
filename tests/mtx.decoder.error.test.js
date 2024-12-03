@@ -66,6 +66,7 @@ const tests = [
                 payload: '55101107000000', //'50ffff000155101007000000',
                 header: {
                     type: 80,
+                    typeName: 'DATA_REQUEST',
                     destination: 65535,
                     source: 1
                 },

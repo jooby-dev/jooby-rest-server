@@ -141,6 +141,7 @@ const tests = [
                 payload: '55101007000000', //'50ffff000155101007000000',
                 header: {
                     type: 80,
+                    typeName: 'DATA_REQUEST',
                     destination: 65535,
                     source: 1
                 },
@@ -173,6 +174,7 @@ const tests = [
                 payload: '55101007000000', //'50ffff000155101007000000',
                 header: {
                     type: 80,
+                    typeName: 'DATA_REQUEST',
                     destination: 65535,
                     source: 1
                 },
@@ -207,6 +209,7 @@ const tests = [
                 payload: 'VRAQBwAAAA==', //'UP//AAFVEBAHAAAA',
                 header: {
                     type: 80,
+                    typeName: 'DATA_REQUEST',
                     destination: 65535,
                     source: 1
                 },
@@ -242,6 +245,7 @@ const tests = [
                 payload: '0c134704a6e5e63701ad37a5d57192143c52', //'50fffffffe0c134704a6e5e63701ad37a5d57192143c52'
                 header: {
                     type: 80,
+                    typeName: 'DATA_REQUEST',
                     destination: 65535,
                     source: 65534
                 },
@@ -275,6 +279,7 @@ const tests = [
                 payload: '0c134704a6e5e63701ad37a5d57192143c52', // '50fffffffe0c134704a6e5e63701ad37a5d57192143c52',
                 header: {
                     type: 80,
+                    typeName: 'DATA_REQUEST',
                     destination: 65535,
                     source: 65534
                 },
@@ -310,6 +315,7 @@ const tests = [
                 payload: 'DBNHBKbl5jcBrTel1XGSFDxS', //'UP////4ME0cEpuXmNwGtN6XVcZIUPFI=',
                 header: {
                     type: 80,
+                    typeName: 'DATA_REQUEST',
                     destination: 65535,
                     source: 65534
                 },
