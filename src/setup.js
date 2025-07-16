@@ -3,7 +3,7 @@
 
 import dotenv from 'dotenv';
 
-dotenv.config();
+dotenv.config({quiet: true});
 
 process.on('unhandledRejection', error => {
     console.error('unhandledRejection', error);
