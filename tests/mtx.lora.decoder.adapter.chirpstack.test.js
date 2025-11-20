@@ -236,7 +236,9 @@ const segment3 = {
                         isMeterTerminalBoxOpen: false,
                         isModuleCompartmentOpen: true,
                         isTariffPlanChanged: false,
-                        isNewTariffPlanReceived: false
+                        isNewTariffPlanReceived: false,
+                        isElectromagneticInfluenceReset: true,
+                        isMagneticInfluenceReset: true
                     }
                 }
             }
